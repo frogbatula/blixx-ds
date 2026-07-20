@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "welcome": "Välkommen",
+    "casino": "Kasino",
+    "promotions": "Kampanjer",
+    "profile": "Profil"
+  },
+  "header": {
+    "balance": "Saldo",
+    "deposit": "Sätt in",
+    "account": "Konto"
+  },
+  "welcome": {
+    "headline": "Välkommen till {{brand}}-kasinot",
+    "subtitle": "Designsystem-POC — byt varumärke, tema och språk.",
+    "cta": "Gå till kasinot",
+    "controlsTitle": "POC-kontroller"
+  },
+  "controls": {
+    "brand": "Varumärke",
+    "theme": "Tema",
+    "colorMode": "Färgläge",
+    "country": "Land",
+    "language": "Språk",
+    "dark": "Mörk",
+    "light": "Ljus",
+    "default": "Standard",
+    "alt": "Alternativ"
+  },
+  "pages": {
+    "casino": "Kasino (mock)",
+    "casinoBody": "Spellista kommer senare. Endast mockdata.",
+    "promotions": "Kampanjer (mock)",
+    "promotionsBody": "Erbjudanden och bonusar — platshållare.",
+    "profile": "Profil (mock)",
+    "profileBody": "Inloggning och konto — platshållare."
+  },
+  "docs": {
+    "title": "Designsystem",
+    "subtitle": "Grunder, live-tokens och exportformat för Blixx DS över varumärken och teman.",
+    "openDocs": "Designsystem-dokumentation",
+    "nav": {
+      "overview": "Översikt",
+      "tokens": "Tokens",
+      "components": "Komponenter"
+    },
+    "overview": {
+      "intro": "Blixx DS är en flervarumärkes POC för kasinodesignsystem. Semantiska CSS-variabler driver Tailwind-utilities så samma komponenter anpassar sig när varumärke, tema eller ljust/mörkt läge byts.",
+      "architecture": "Inställningar sätter data-brand, data-theme och light|dark på html. Varumärkes-CSS skriver över tokenvärden; komponenter använder utilities som bg-primary.",
+      "brandsTitle": "Varumärken",
+      "brandsBody": "Tre kasinovarumärken för schematest.",
+      "themesTitle": "Teman och lägen",
+      "themesBody": "Varje varumärke har default- och alt-scheman plus light och dark.",
+      "breakpointTitle": "Layout-brytpunkt",
+      "breakpointBody": "Desktop-shell (vänsternav) från 1280px; mobil bottennav under.",
+      "tokensTitle": "Tokenkatalog",
+      "tokensBody": "Bläddra live-värden och exportera till verktyg."
+    },
+    "tokens": {
+      "live": "Live-värden för aktivt varumärke / tema / läge"
+    },
+    "exportTitle": "Exportera tokens",
+    "exportBody": "Ladda ner eller kopiera den aktuella tokensättet i önskat format.",
+    "exportFormat": "Format",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "download": "Ladda ner",
+    "exportHint": "Exporterar {{brand}} · {{theme}} · {{colorMode}}",
+    "components": {
+      "intro": "Kärnprimitiver kopplade till semantiska tokens. Byt varumärke/tema via debug-menyn.",
+      "button": "Varianter mappar hover och pressed till dedikerade tokensteg."
+    }
+  }
+}

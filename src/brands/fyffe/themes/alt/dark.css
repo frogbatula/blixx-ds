@@ -1,0 +1,47 @@
+/* Fyffe · alt · dark — crimson / champagne */
+html[data-brand='fyffe'][data-theme='alt'].dark {
+  --backdrop: #000000;
+  --background: #12080a;
+  --background-subtle: #241014;
+  --background-muted: #321820;
+  --background-muted-strong: #422028;
+  --card: #1a0c10;
+  --foreground: #f0e8ea;
+  --primary: #e11d48;
+  --primary-hover: #fb7185;
+  --primary-pressed: #be123c;
+  --primary-foreground: #ffffff;
+  --secondary: #e7c89a;
+  --secondary-hover: #f0d9b5;
+  --secondary-pressed: #d4b07a;
+  --secondary-foreground: #12080a;
+  --tertiary: #12080a;
+  --tertiary-hover: #fb7185;
+  --tertiary-pressed: #be123c;
+  --tertiary-foreground: #f0e8ea;
+  --success: #3f9c28;
+  --success-hover: #4db530;
+  --success-pressed: #357f21;
+  --success-foreground: #ffffff;
+  --info: #3494a7;
+  --info-hover: #3eacbf;
+  --info-pressed: #2c7c8c;
+  --info-foreground: #ffffff;
+  --warning: #cb7920;
+  --warning-hover: #e58824;
+  --warning-pressed: #b26a1c;
+  --warning-foreground: #ffffff;
+  --destructive: #a33232;
+  --destructive-hover: #bd3a3a;
+  --destructive-pressed: #8a2a2a;
+  --destructive-foreground: #ffffff;
+  --divider: rgb(225 29 72 / 0.4);
+  --border: rgb(225 29 72 / 0.6);
+  --border-muted: rgb(225 29 72 / 0.24);
+  --input: #321820;
+  --input-border: #be123c;
+  --ring: #e11d48;
+  --nav: #1a0c10;
+  --nav-foreground: #f0e8ea;
+  --nav-active: #e11d48;
+}

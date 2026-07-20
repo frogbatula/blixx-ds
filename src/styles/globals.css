@@ -1,0 +1,144 @@
+@import 'tailwindcss';
+
+@import '../brands/kanuuna/themes/default/dark.css';
+@import '../brands/kanuuna/themes/default/light.css';
+@import '../brands/kanuuna/themes/alt/dark.css';
+@import '../brands/kanuuna/themes/alt/light.css';
+@import '../brands/lonkero/themes/default/dark.css';
+@import '../brands/lonkero/themes/default/light.css';
+@import '../brands/lonkero/themes/alt/dark.css';
+@import '../brands/lonkero/themes/alt/light.css';
+@import '../brands/fyffe/themes/default/dark.css';
+@import '../brands/fyffe/themes/default/light.css';
+@import '../brands/fyffe/themes/alt/dark.css';
+@import '../brands/fyffe/themes/alt/light.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Default fallback = Kanuuna default dark (Figma) until BrandProvider hydrates */
+:root {
+  --backdrop: #000000;
+  --background: #190828;
+  --background-subtle: #321051;
+  --background-muted: #401466;
+  --background-muted-strong: #4a1877;
+  --card: #250c3c;
+  --foreground: #e1e1e1;
+  --primary: #ff1fb3;
+  --primary-hover: #ff5fdf;
+  --primary-pressed: #b22696;
+  --primary-foreground: #e1e1e1;
+  --secondary: #0bf6fe;
+  --secondary-hover: #39f8fe;
+  --secondary-pressed: #01d8df;
+  --secondary-foreground: #190828;
+  --tertiary: #190828;
+  --tertiary-hover: #ff5fdf;
+  --tertiary-pressed: #b22696;
+  --tertiary-foreground: #e1e1e1;
+  --success: #3f9c28;
+  --success-hover: #4db530;
+  --success-pressed: #357f21;
+  --success-foreground: #ffffff;
+  --info: #3494a7;
+  --info-hover: #3eacbf;
+  --info-pressed: #2c7c8c;
+  --info-foreground: #ffffff;
+  --warning: #cb7920;
+  --warning-hover: #e58824;
+  --warning-pressed: #b26a1c;
+  --warning-foreground: #ffffff;
+  --destructive: #a33232;
+  --destructive-hover: #bd3a3a;
+  --destructive-pressed: #8a2a2a;
+  --destructive-foreground: #ffffff;
+  --divider: rgb(255 31 179 / 0.4);
+  --border: rgb(255 31 179 / 0.6);
+  --border-muted: rgb(255 31 179 / 0.24);
+  --input: #631485;
+  --input-border: #891cb8;
+  --ring: #ff1fb3;
+  --nav: #250c3c;
+  --nav-foreground: #e1e1e1;
+  --nav-active: #ff1fb3;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+
+  --color-backdrop: var(--backdrop);
+  --color-background: var(--background);
+  --color-background-subtle: var(--background-subtle);
+  --color-background-muted: var(--background-muted);
+  --color-background-muted-strong: var(--background-muted-strong);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-pressed: var(--secondary-pressed);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-hover: var(--tertiary-hover);
+  --color-tertiary-pressed: var(--tertiary-pressed);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-success: var(--success);
+  --color-success-hover: var(--success-hover);
+  --color-success-pressed: var(--success-pressed);
+  --color-success-foreground: var(--success-foreground);
+  --color-info: var(--info);
+  --color-info-hover: var(--info-hover);
+  --color-info-pressed: var(--info-pressed);
+  --color-info-foreground: var(--info-foreground);
+  --color-warning: var(--warning);
+  --color-warning-hover: var(--warning-hover);
+  --color-warning-pressed: var(--warning-pressed);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-destructive-pressed: var(--destructive-pressed);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-divider: var(--divider);
+  --color-border: var(--border);
+  --color-border-muted: var(--border-muted);
+  --color-input: var(--input);
+  --color-input-border: var(--input-border);
+  --color-ring: var(--ring);
+  --color-nav: var(--nav);
+  --color-nav-foreground: var(--nav-foreground);
+  --color-nav-active: var(--nav-active);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  /* Desktop ≥ 1280px (Tailwind xl); alias for clarity */
+  --breakpoint-desktop: 1280px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply m-0 min-h-dvh bg-backdrop font-sans text-foreground;
+  }
+
+  #root {
+    @apply min-h-dvh;
+  }
+}

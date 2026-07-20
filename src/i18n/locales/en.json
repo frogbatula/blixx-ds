@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "welcome": "Welcome",
+    "casino": "Casino",
+    "promotions": "Promotions",
+    "profile": "Profile"
+  },
+  "header": {
+    "balance": "Balance",
+    "deposit": "Deposit",
+    "account": "Account"
+  },
+  "welcome": {
+    "headline": "Welcome to {{brand}} Casino",
+    "subtitle": "Design-system POC — switch brand, theme, and language.",
+    "cta": "Go to casino",
+    "controlsTitle": "POC controls"
+  },
+  "controls": {
+    "brand": "Brand",
+    "theme": "Theme",
+    "colorMode": "Color mode",
+    "country": "Country",
+    "language": "Language",
+    "dark": "Dark",
+    "light": "Light",
+    "default": "Default",
+    "alt": "Alt"
+  },
+  "pages": {
+    "casino": "Casino (mock)",
+    "casinoBody": "Game catalogue coming later. Mock data only.",
+    "promotions": "Promotions (mock)",
+    "promotionsBody": "Offers and bonuses — placeholder.",
+    "profile": "Profile (mock)",
+    "profileBody": "Sign-in and account — placeholder."
+  },
+  "docs": {
+    "title": "Design system",
+    "subtitle": "Foundations, live tokens, and exports for Blixx DS across brands and themes.",
+    "openDocs": "Design system docs",
+    "nav": {
+      "overview": "Overview",
+      "tokens": "Tokens",
+      "components": "Components"
+    },
+    "overview": {
+      "intro": "Blixx DS is a multi-brand casino design system POC. Semantic CSS variables drive Tailwind utilities so the same components adapt when brand, theme scheme, or light/dark mode changes.",
+      "architecture": "Preferences set data-brand, data-theme, and a light|dark class on the html element. Brand CSS files override the token values; components consume utilities like bg-primary and text-foreground.",
+      "brandsTitle": "Brands",
+      "brandsBody": "Three casino brands for scheme testing.",
+      "themesTitle": "Themes & modes",
+      "themesBody": "Each brand has default and alt schemes, plus light and dark modes.",
+      "breakpointTitle": "Layout breakpoint",
+      "breakpointBody": "Desktop shell (left nav) from 1280px up; mobile bottom nav below.",
+      "tokensTitle": "Token catalogue",
+      "tokensBody": "Browse live computed values and export them for tooling."
+    },
+    "tokens": {
+      "live": "Live values for the active brand / theme / mode"
+    },
+    "exportTitle": "Export tokens",
+    "exportBody": "Download or copy the currently resolved token set in the format you need.",
+    "exportFormat": "Format",
+    "copy": "Copy",
+    "copied": "Copied",
+    "download": "Download",
+    "exportHint": "Exporting {{brand}} · {{theme}} · {{colorMode}}",
+    "components": {
+      "intro": "Core primitives wired to semantic tokens. Switch brand/theme via the debug menu to preview.",
+      "button": "Variants map hover and pressed states to dedicated token steps."
+    }
+  }
+}

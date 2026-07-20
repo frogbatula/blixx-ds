@@ -1,0 +1,47 @@
+/* Kanuuna · default · dark — authoritative Figma colours (888:20695) */
+html[data-brand='kanuuna'][data-theme='default'].dark {
+  --backdrop: #000000;
+  --background: #190828;
+  --background-subtle: #321051;
+  --background-muted: #401466;
+  --background-muted-strong: #4a1877;
+  --card: #250c3c;
+  --foreground: #e1e1e1;
+  --primary: #ff1fb3;
+  --primary-hover: #ff5fdf;
+  --primary-pressed: #b22696;
+  --primary-foreground: #e1e1e1;
+  --secondary: #0bf6fe;
+  --secondary-hover: #39f8fe;
+  --secondary-pressed: #01d8df;
+  --secondary-foreground: #190828;
+  --tertiary: #190828;
+  --tertiary-hover: #ff5fdf;
+  --tertiary-pressed: #b22696;
+  --tertiary-foreground: #e1e1e1;
+  --success: #3f9c28;
+  --success-hover: #4db530;
+  --success-pressed: #357f21;
+  --success-foreground: #ffffff;
+  --info: #3494a7;
+  --info-hover: #3eacbf;
+  --info-pressed: #2c7c8c;
+  --info-foreground: #ffffff;
+  --warning: #cb7920;
+  --warning-hover: #e58824;
+  --warning-pressed: #b26a1c;
+  --warning-foreground: #ffffff;
+  --destructive: #a33232;
+  --destructive-hover: #bd3a3a;
+  --destructive-pressed: #8a2a2a;
+  --destructive-foreground: #ffffff;
+  --divider: rgb(255 31 179 / 0.4);
+  --border: rgb(255 31 179 / 0.6);
+  --border-muted: rgb(255 31 179 / 0.24);
+  --input: #631485;
+  --input-border: #891cb8;
+  --ring: #ff1fb3;
+  --nav: #250c3c;
+  --nav-foreground: #e1e1e1;
+  --nav-active: #ff1fb3;
+}

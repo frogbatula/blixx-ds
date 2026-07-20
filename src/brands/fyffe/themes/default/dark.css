@@ -1,0 +1,47 @@
+/* Fyffe · default · dark — gold / deep navy */
+html[data-brand='fyffe'][data-theme='default'].dark {
+  --backdrop: #000000;
+  --background: #0a0e1a;
+  --background-subtle: #141b2e;
+  --background-muted: #1c2540;
+  --background-muted-strong: #263354;
+  --card: #101828;
+  --foreground: #e8eaf0;
+  --primary: #f5c518;
+  --primary-hover: #ffd54f;
+  --primary-pressed: #d4a017;
+  --primary-foreground: #0a0e1a;
+  --secondary: #3b82f6;
+  --secondary-hover: #60a5fa;
+  --secondary-pressed: #2563eb;
+  --secondary-foreground: #ffffff;
+  --tertiary: #0a0e1a;
+  --tertiary-hover: #ffd54f;
+  --tertiary-pressed: #d4a017;
+  --tertiary-foreground: #e8eaf0;
+  --success: #3f9c28;
+  --success-hover: #4db530;
+  --success-pressed: #357f21;
+  --success-foreground: #ffffff;
+  --info: #3494a7;
+  --info-hover: #3eacbf;
+  --info-pressed: #2c7c8c;
+  --info-foreground: #ffffff;
+  --warning: #cb7920;
+  --warning-hover: #e58824;
+  --warning-pressed: #b26a1c;
+  --warning-foreground: #ffffff;
+  --destructive: #a33232;
+  --destructive-hover: #bd3a3a;
+  --destructive-pressed: #8a2a2a;
+  --destructive-foreground: #ffffff;
+  --divider: rgb(245 197 24 / 0.4);
+  --border: rgb(245 197 24 / 0.6);
+  --border-muted: rgb(245 197 24 / 0.24);
+  --input: #1c2540;
+  --input-border: #d4a017;
+  --ring: #f5c518;
+  --nav: #101828;
+  --nav-foreground: #e8eaf0;
+  --nav-active: #f5c518;
+}

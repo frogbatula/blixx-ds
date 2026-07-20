@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "welcome": "Tervetuloa",
+    "casino": "Kasino",
+    "promotions": "Kampanjat",
+    "profile": "Profiili"
+  },
+  "header": {
+    "balance": "Saldo",
+    "deposit": "Talleta",
+    "account": "Tili"
+  },
+  "welcome": {
+    "headline": "Tervetuloa {{brand}}-kasinolle",
+    "subtitle": "Design-system POC — vaihda brändiä, teemaa ja kieltä.",
+    "cta": "Siirry kasinoon",
+    "controlsTitle": "POC-asetukset"
+  },
+  "controls": {
+    "brand": "Brändi",
+    "theme": "Teema",
+    "colorMode": "Väritila",
+    "country": "Maa",
+    "language": "Kieli",
+    "dark": "Tumma",
+    "light": "Vaalea",
+    "default": "Oletus",
+    "alt": "Vaihtoehto"
+  },
+  "pages": {
+    "casino": "Kasino (mock)",
+    "casinoBody": "Peliluettelo tulee myöhemmin. Mock-data vain.",
+    "promotions": "Kampanjat (mock)",
+    "promotionsBody": "Tarjoukset ja bonukset — placeholder.",
+    "profile": "Profiili (mock)",
+    "profileBody": "Kirjautuminen ja tili — placeholder."
+  },
+  "docs": {
+    "title": "Design system",
+    "subtitle": "Perusteet, live-tokenit ja vientimuodot Blixx DS:lle eri brändeille ja teemoille.",
+    "openDocs": "Design system -dokumentaatio",
+    "nav": {
+      "overview": "Yleiskatsaus",
+      "tokens": "Tokenit",
+      "components": "Komponentit"
+    },
+    "overview": {
+      "intro": "Blixx DS on monibrändinen kasinodesign-systemin POC. Semanttiset CSS-muuttujat ohjaavat Tailwind-utilityjä, joten samat komponentit mukautuvat brändin, teeman tai vaalea/tumma-tilan vaihtuessa.",
+      "architecture": "Asetukset kirjoittavat data-brand-, data-theme- ja light|dark-luokan html-elementtiin. Brändien CSS korvaa token-arvot; komponentit käyttävät utilityjä kuten bg-primary.",
+      "brandsTitle": "Brändit",
+      "brandsBody": "Kolme kasinobrändiä skeematestausta varten.",
+      "themesTitle": "Teemat ja tilat",
+      "themesBody": "Jokaisella brändillä on default- ja alt-skeemat sekä light- ja dark-tilat.",
+      "breakpointTitle": "Layout-breakpoint",
+      "breakpointBody": "Desktop-shell (vasen navigaatio) alkaen 1280px; mobiili alapalkki sen alla.",
+      "tokensTitle": "Token-katalogi",
+      "tokensBody": "Selaa live-arvoja ja vie ne työkaluihin."
+    },
+    "tokens": {
+      "live": "Live-arvot aktiiviselle brändille / teemalle / tilalle"
+    },
+    "exportTitle": "Vie tokenit",
+    "exportBody": "Lataa tai kopioi nykyinen token-setti tarvitsemassasi muodossa.",
+    "exportFormat": "Muoto",
+    "copy": "Kopioi",
+    "copied": "Kopioitu",
+    "download": "Lataa",
+    "exportHint": "Viedään {{brand}} · {{theme}} · {{colorMode}}",
+    "components": {
+      "intro": "Perusprimitiivit semanttisiin tokeneihin. Vaihda brändiä/teemaa debug-valikosta.",
+      "button": "Variantit mapittavat hover- ja pressed-tilat token-askeliin."
+    }
+  }
+}

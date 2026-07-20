@@ -1,0 +1,47 @@
+/* Kanuuna · default · light */
+html[data-brand='kanuuna'][data-theme='default'].light {
+  --backdrop: #f5f0fa;
+  --background: #faf7fc;
+  --background-subtle: #f0e8f7;
+  --background-muted: #e4d4f0;
+  --background-muted-strong: #d4bce6;
+  --card: #ffffff;
+  --foreground: #190828;
+  --primary: #e01a9e;
+  --primary-hover: #ff1fb3;
+  --primary-pressed: #b22696;
+  --primary-foreground: #ffffff;
+  --secondary: #01c5cc;
+  --secondary-hover: #0bf6fe;
+  --secondary-pressed: #01a8ae;
+  --secondary-foreground: #190828;
+  --tertiary: #ffffff;
+  --tertiary-hover: #f0e8f7;
+  --tertiary-pressed: #e4d4f0;
+  --tertiary-foreground: #190828;
+  --success: #3f9c28;
+  --success-hover: #4db530;
+  --success-pressed: #357f21;
+  --success-foreground: #ffffff;
+  --info: #3494a7;
+  --info-hover: #3eacbf;
+  --info-pressed: #2c7c8c;
+  --info-foreground: #ffffff;
+  --warning: #cb7920;
+  --warning-hover: #e58824;
+  --warning-pressed: #b26a1c;
+  --warning-foreground: #ffffff;
+  --destructive: #a33232;
+  --destructive-hover: #bd3a3a;
+  --destructive-pressed: #8a2a2a;
+  --destructive-foreground: #ffffff;
+  --divider: rgb(25 8 40 / 0.12);
+  --border: rgb(25 8 40 / 0.2);
+  --border-muted: rgb(25 8 40 / 0.08);
+  --input: #f0e8f7;
+  --input-border: #c9a8e0;
+  --ring: #e01a9e;
+  --nav: #ffffff;
+  --nav-foreground: #190828;
+  --nav-active: #e01a9e;
+}

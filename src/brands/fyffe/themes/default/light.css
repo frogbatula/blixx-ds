@@ -1,0 +1,47 @@
+/* Fyffe · default · light */
+html[data-brand='fyffe'][data-theme='default'].light {
+  --backdrop: #f0f2f8;
+  --background: #f7f8fc;
+  --background-subtle: #e8ebf4;
+  --background-muted: #d4d9e8;
+  --background-muted-strong: #b8c0d6;
+  --card: #ffffff;
+  --foreground: #0a0e1a;
+  --primary: #d4a017;
+  --primary-hover: #f5c518;
+  --primary-pressed: #b8860b;
+  --primary-foreground: #0a0e1a;
+  --secondary: #2563eb;
+  --secondary-hover: #3b82f6;
+  --secondary-pressed: #1d4ed8;
+  --secondary-foreground: #ffffff;
+  --tertiary: #ffffff;
+  --tertiary-hover: #e8ebf4;
+  --tertiary-pressed: #d4d9e8;
+  --tertiary-foreground: #0a0e1a;
+  --success: #3f9c28;
+  --success-hover: #4db530;
+  --success-pressed: #357f21;
+  --success-foreground: #ffffff;
+  --info: #3494a7;
+  --info-hover: #3eacbf;
+  --info-pressed: #2c7c8c;
+  --info-foreground: #ffffff;
+  --warning: #cb7920;
+  --warning-hover: #e58824;
+  --warning-pressed: #b26a1c;
+  --warning-foreground: #ffffff;
+  --destructive: #a33232;
+  --destructive-hover: #bd3a3a;
+  --destructive-pressed: #8a2a2a;
+  --destructive-foreground: #ffffff;
+  --divider: rgb(10 14 26 / 0.12);
+  --border: rgb(10 14 26 / 0.2);
+  --border-muted: rgb(10 14 26 / 0.08);
+  --input: #e8ebf4;
+  --input-border: #c5cce0;
+  --ring: #d4a017;
+  --nav: #ffffff;
+  --nav-foreground: #0a0e1a;
+  --nav-active: #d4a017;
+}

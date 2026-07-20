@@ -1,0 +1,47 @@
+/* Kanuuna · alt · light */
+html[data-brand='kanuuna'][data-theme='alt'].light {
+  --backdrop: #f6f0fc;
+  --background: #fbf8fe;
+  --background-subtle: #f3eafb;
+  --background-muted: #e9d8f9;
+  --background-muted-strong: #d8b9f3;
+  --card: #ffffff;
+  --foreground: #14061f;
+  --primary: #9333ea;
+  --primary-hover: #a855f7;
+  --primary-pressed: #7e22ce;
+  --primary-foreground: #ffffff;
+  --secondary: #84cc16;
+  --secondary-hover: #a3e635;
+  --secondary-pressed: #65a30d;
+  --secondary-foreground: #14061f;
+  --tertiary: #ffffff;
+  --tertiary-hover: #f3eafb;
+  --tertiary-pressed: #e9d8f9;
+  --tertiary-foreground: #14061f;
+  --success: #3f9c28;
+  --success-hover: #4db530;
+  --success-pressed: #357f21;
+  --success-foreground: #ffffff;
+  --info: #3494a7;
+  --info-hover: #3eacbf;
+  --info-pressed: #2c7c8c;
+  --info-foreground: #ffffff;
+  --warning: #cb7920;
+  --warning-hover: #e58824;
+  --warning-pressed: #b26a1c;
+  --warning-foreground: #ffffff;
+  --destructive: #a33232;
+  --destructive-hover: #bd3a3a;
+  --destructive-pressed: #8a2a2a;
+  --destructive-foreground: #ffffff;
+  --divider: rgb(20 6 31 / 0.12);
+  --border: rgb(20 6 31 / 0.2);
+  --border-muted: rgb(20 6 31 / 0.08);
+  --input: #f3eafb;
+  --input-border: #c4a0e8;
+  --ring: #9333ea;
+  --nav: #ffffff;
+  --nav-foreground: #14061f;
+  --nav-active: #9333ea;
+}

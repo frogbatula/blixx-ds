@@ -1,0 +1,47 @@
+/* Lonkero · default · light */
+html[data-brand='lonkero'][data-theme='default'].light {
+  --backdrop: #eef8f3;
+  --background: #f7fcf9;
+  --background-subtle: #e6f5ee;
+  --background-muted: #cfead9;
+  --background-muted-strong: #a8d9c0;
+  --card: #ffffff;
+  --foreground: #061410;
+  --primary: #059669;
+  --primary-hover: #10b981;
+  --primary-pressed: #047857;
+  --primary-foreground: #ffffff;
+  --secondary: #d97706;
+  --secondary-hover: #f59e0b;
+  --secondary-pressed: #b45309;
+  --secondary-foreground: #061410;
+  --tertiary: #ffffff;
+  --tertiary-hover: #e6f5ee;
+  --tertiary-pressed: #cfead9;
+  --tertiary-foreground: #061410;
+  --success: #3f9c28;
+  --success-hover: #4db530;
+  --success-pressed: #357f21;
+  --success-foreground: #ffffff;
+  --info: #3494a7;
+  --info-hover: #3eacbf;
+  --info-pressed: #2c7c8c;
+  --info-foreground: #ffffff;
+  --warning: #cb7920;
+  --warning-hover: #e58824;
+  --warning-pressed: #b26a1c;
+  --warning-foreground: #ffffff;
+  --destructive: #a33232;
+  --destructive-hover: #bd3a3a;
+  --destructive-pressed: #8a2a2a;
+  --destructive-foreground: #ffffff;
+  --divider: rgb(6 20 16 / 0.12);
+  --border: rgb(6 20 16 / 0.2);
+  --border-muted: rgb(6 20 16 / 0.08);
+  --input: #e6f5ee;
+  --input-border: #86d4b0;
+  --ring: #059669;
+  --nav: #ffffff;
+  --nav-foreground: #061410;
+  --nav-active: #059669;
+}
