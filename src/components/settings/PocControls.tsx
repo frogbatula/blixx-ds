@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { usePreferences } from '@/app/PreferencesProvider'
+import { useAuth } from '@/app/AuthProvider'
 import { brands, themes, colorModes, countries, locales } from '@/brands/types'
 import { brandLabels } from '@/brands/types'
 import { countryLabels, localeLabels } from '@/mock/data'
@@ -58,9 +59,20 @@ export function PocControls({ className }: { className?: string }) {
     setCountry,
     setLocale,
   } = usePreferences()
+  const { isLoggedIn, login, logout } = useAuth()
 
   return (
     <div className={cn('grid gap-4 sm:grid-cols-2 lg:grid-cols-3', className)}>
+      <SelectField
+        id="auth-mode"
+        label={t('controls.auth')}
+        value={isLoggedIn ? 'in' : 'out'}
+        onChange={(v) => (v === 'in' ? login() : logout())}
+        options={[
+          { value: 'out', label: t('auth.loggedOut') },
+          { value: 'in', label: t('auth.loggedIn') },
+        ]}
+      />
       <SelectField
         id="brand"
         label={t('controls.brand')}

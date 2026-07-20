@@ -6,6 +6,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import { playwright } from '@vitest/browser-playwright'
+import { cmsPublishPlugin } from './vite.cms-plugin.ts'
 
 const dirname =
   typeof __dirname !== 'undefined'
@@ -13,7 +14,7 @@ const dirname =
     : path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), cmsPublishPlugin(dirname)],
   resolve: {
     alias: {
       '@': path.resolve(dirname, './src'),

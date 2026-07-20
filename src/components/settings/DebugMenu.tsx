@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { BookOpen, Settings } from 'lucide-react'
+import { BookOpen, LayoutDashboard, Settings } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -72,6 +72,12 @@ export function DebugMenu() {
               <Link to="/docs" onClick={() => setOpen(false)}>
                 <BookOpen className="size-4" />
                 {t('docs.openDocs')}
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full justify-start">
+              <Link to="/cms" onClick={() => setOpen(false)}>
+                <LayoutDashboard className="size-4" />
+                Mission Control
               </Link>
             </Button>
           </CardContent>

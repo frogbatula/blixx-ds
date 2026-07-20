@@ -1,0 +1,296 @@
+{
+  "tenantId": "happymoney",
+  "name": "HappyMoney",
+  "brands": [
+    {
+      "id": "lonkero",
+      "label": "Lonkero"
+    },
+    {
+      "id": "kanuuna",
+      "label": "Kanuuna"
+    },
+    {
+      "id": "fyffe",
+      "label": "Fyffe"
+    }
+  ],
+  "messageLayers": [
+    {
+      "id": "tenant-default",
+      "scope": {},
+      "messages": {
+        "welcome.cta": "Play Now"
+      }
+    },
+    {
+      "id": "locale-en-GB",
+      "scope": {
+        "locale": "en-GB"
+      },
+      "messages": {
+        "nav.welcome": "Welcome",
+        "nav.casino": "Games",
+        "nav.promotions": "Promotions",
+        "nav.profile": "Profile",
+        "header.balance": "Balance",
+        "header.deposit": "Deposit",
+        "header.account": "Account",
+        "header.login": "Log in",
+        "header.logout": "Log out",
+        "header.register": "Register",
+        "auth.loggedIn": "Logged in",
+        "auth.loggedOut": "Logged out",
+        "auth.pocHint": "POC mock login — no real credentials required.",
+        "welcome.headline": "Welcome to {{brand}} Casino",
+        "welcome.subtitle": "Design-system POC — switch brand, theme, and language.",
+        "welcome.controlsTitle": "POC controls",
+        "controls.brand": "Brand",
+        "controls.theme": "Theme",
+        "controls.colorMode": "Color mode",
+        "controls.country": "Country",
+        "controls.language": "Language",
+        "controls.auth": "Player auth",
+        "controls.dark": "Dark",
+        "controls.light": "Light",
+        "controls.default": "Default",
+        "controls.alt": "Alt",
+        "pages.casino": "Casino (mock)",
+        "pages.casinoBody": "Game catalogue coming later. Mock data only.",
+        "pages.promotions": "Promotions (mock)",
+        "pages.promotionsBody": "Offers and bonuses — placeholder.",
+        "pages.profile": "Log in",
+        "pages.profileBody": "Sign in to see balance, deposit, and account controls.",
+        "pages.profileLoggedInTitle": "Your account",
+        "pages.profileLoggedInBody": "You are signed in with the mock player account.",
+        "docs.title": "Design system",
+        "docs.subtitle": "Foundations, live tokens, and exports for Blixx DS across brands and themes.",
+        "docs.openDocs": "Design system docs",
+        "docs.nav.overview": "Overview",
+        "docs.nav.tokens": "Tokens",
+        "docs.nav.components": "Components",
+        "docs.overview.intro": "Blixx DS is a multi-brand casino design system POC. Semantic CSS variables drive Tailwind utilities so the same components adapt when brand, theme scheme, or light/dark mode changes.",
+        "docs.overview.architecture": "Preferences set data-brand, data-theme, and a light|dark class on the html element. Brand CSS files override the token values; components consume utilities like bg-primary and text-foreground.",
+        "docs.overview.brandsTitle": "Brands",
+        "docs.overview.brandsBody": "Three casino brands for scheme testing.",
+        "docs.overview.themesTitle": "Themes & modes",
+        "docs.overview.themesBody": "Each brand has default and alt schemes, plus light and dark modes.",
+        "docs.overview.breakpointTitle": "Layout breakpoint",
+        "docs.overview.breakpointBody": "Desktop shell (left nav) from 1280px up; mobile bottom nav below.",
+        "docs.overview.tokensTitle": "Token catalogue",
+        "docs.overview.tokensBody": "Browse live computed values and export them for tooling.",
+        "docs.tokens.live": "Live values for the active brand / theme / mode",
+        "docs.exportTitle": "Export tokens",
+        "docs.exportBody": "Download or copy the currently resolved token set in the format you need.",
+        "docs.exportFormat": "Format",
+        "docs.copy": "Copy",
+        "docs.copied": "Copied",
+        "docs.download": "Download",
+        "docs.exportHint": "Exporting {{brand}} · {{theme}} · {{colorMode}}",
+        "docs.components.intro": "Core primitives wired to semantic tokens. Switch brand/theme via the debug menu to preview.",
+        "docs.components.button": "Variants map hover and pressed states to dedicated token steps."
+      }
+    },
+    {
+      "id": "locale-fi-FI",
+      "scope": {
+        "locale": "fi-FI"
+      },
+      "messages": {
+        "nav.welcome": "Tervetuloa",
+        "nav.casino": "Kasino",
+        "nav.promotions": "Kampanjat",
+        "nav.profile": "Profiili",
+        "header.balance": "Saldo",
+        "header.deposit": "Talleta",
+        "header.account": "Tili",
+        "header.login": "Kirjaudu",
+        "header.logout": "Kirjaudu ulos",
+        "header.register": "Rekisteröidy",
+        "auth.loggedIn": "Kirjautunut",
+        "auth.loggedOut": "Uloskirjautunut",
+        "auth.pocHint": "POC-mock-kirjautuminen — oikeita tunnuksia ei tarvita.",
+        "welcome.headline": "Tervetuloa {{brand}}-kasinolle",
+        "welcome.subtitle": "Design-system POC — vaihda brändiä, teemaa ja kieltä.",
+        "welcome.controlsTitle": "POC-asetukset",
+        "controls.brand": "Brändi",
+        "controls.theme": "Teema",
+        "controls.colorMode": "Väritila",
+        "controls.country": "Maa",
+        "controls.language": "Kieli",
+        "controls.auth": "Pelaajan tila",
+        "controls.dark": "Tumma",
+        "controls.light": "Vaalea",
+        "controls.default": "Oletus",
+        "controls.alt": "Vaihtoehto",
+        "pages.casino": "Kasino (mock)",
+        "pages.casinoBody": "Peliluettelo tulee myöhemmin. Mock-data vain.",
+        "pages.promotions": "Kampanjat (mock)",
+        "pages.promotionsBody": "Tarjoukset ja bonukset — placeholder.",
+        "pages.profile": "Kirjaudu",
+        "pages.profileBody": "Kirjaudu sisään nähdäksesi saldon, talletuksen ja tilin.",
+        "pages.profileLoggedInTitle": "Tilisi",
+        "pages.profileLoggedInBody": "Olet kirjautunut mock-pelaajatilillä.",
+        "docs.title": "Design system",
+        "docs.subtitle": "Perusteet, live-tokenit ja vientimuodot Blixx DS:lle eri brändeille ja teemoille.",
+        "docs.openDocs": "Design system -dokumentaatio",
+        "docs.nav.overview": "Yleiskatsaus",
+        "docs.nav.tokens": "Tokenit",
+        "docs.nav.components": "Komponentit",
+        "docs.overview.intro": "Blixx DS on monibrändinen kasinodesign-systemin POC. Semanttiset CSS-muuttujat ohjaavat Tailwind-utilityjä, joten samat komponentit mukautuvat brändin, teeman tai vaalea/tumma-tilan vaihtuessa.",
+        "docs.overview.architecture": "Asetukset kirjoittavat data-brand-, data-theme- ja light|dark-luokan html-elementtiin. Brändien CSS korvaa token-arvot; komponentit käyttävät utilityjä kuten bg-primary.",
+        "docs.overview.brandsTitle": "Brändit",
+        "docs.overview.brandsBody": "Kolme kasinobrändiä skeematestausta varten.",
+        "docs.overview.themesTitle": "Teemat ja tilat",
+        "docs.overview.themesBody": "Jokaisella brändillä on default- ja alt-skeemat sekä light- ja dark-tilat.",
+        "docs.overview.breakpointTitle": "Layout-breakpoint",
+        "docs.overview.breakpointBody": "Desktop-shell (vasen navigaatio) alkaen 1280px; mobiili alapalkki sen alla.",
+        "docs.overview.tokensTitle": "Token-katalogi",
+        "docs.overview.tokensBody": "Selaa live-arvoja ja vie ne työkaluihin.",
+        "docs.tokens.live": "Live-arvot aktiiviselle brändille / teemalle / tilalle",
+        "docs.exportTitle": "Vie tokenit",
+        "docs.exportBody": "Lataa tai kopioi nykyinen token-setti tarvitsemassasi muodossa.",
+        "docs.exportFormat": "Muoto",
+        "docs.copy": "Kopioi",
+        "docs.copied": "Kopioitu",
+        "docs.download": "Lataa",
+        "docs.exportHint": "Viedään {{brand}} · {{theme}} · {{colorMode}}",
+        "docs.components.intro": "Perusprimitiivit semanttisiin tokeneihin. Vaihda brändiä/teemaa debug-valikosta.",
+        "docs.components.button": "Variantit mapittavat hover- ja pressed-tilat token-askeliin."
+      }
+    },
+    {
+      "id": "locale-sv-SE",
+      "scope": {
+        "locale": "sv-SE"
+      },
+      "messages": {
+        "nav.welcome": "Välkommen",
+        "nav.casino": "Kasino",
+        "nav.promotions": "Kampanjer",
+        "nav.profile": "Profil",
+        "header.balance": "Saldo",
+        "header.deposit": "Sätt in",
+        "header.account": "Konto",
+        "header.login": "Logga in",
+        "header.logout": "Logga ut",
+        "header.register": "Registrera",
+        "auth.loggedIn": "Inloggad",
+        "auth.loggedOut": "Utloggad",
+        "auth.pocHint": "POC-mockinloggning — inga riktiga uppgifter behövs.",
+        "welcome.headline": "Välkommen till {{brand}}-kasinot",
+        "welcome.subtitle": "Designsystem-POC — byt varumärke, tema och språk.",
+        "welcome.controlsTitle": "POC-kontroller",
+        "controls.brand": "Varumärke",
+        "controls.theme": "Tema",
+        "controls.colorMode": "Färgläge",
+        "controls.country": "Land",
+        "controls.language": "Språk",
+        "controls.auth": "Spelarstatus",
+        "controls.dark": "Mörk",
+        "controls.light": "Ljus",
+        "controls.default": "Standard",
+        "controls.alt": "Alternativ",
+        "pages.casino": "Kasino (mock)",
+        "pages.casinoBody": "Spellista kommer senare. Endast mockdata.",
+        "pages.promotions": "Kampanjer (mock)",
+        "pages.promotionsBody": "Erbjudanden och bonusar — platshållare.",
+        "pages.profile": "Logga in",
+        "pages.profileBody": "Logga in för att se saldo, insättning och konto.",
+        "pages.profileLoggedInTitle": "Ditt konto",
+        "pages.profileLoggedInBody": "Du är inloggad med mock-spelarkontot.",
+        "docs.title": "Designsystem",
+        "docs.subtitle": "Grunder, live-tokens och exportformat för Blixx DS över varumärken och teman.",
+        "docs.openDocs": "Designsystem-dokumentation",
+        "docs.nav.overview": "Översikt",
+        "docs.nav.tokens": "Tokens",
+        "docs.nav.components": "Komponenter",
+        "docs.overview.intro": "Blixx DS är en flervarumärkes POC för kasinodesignsystem. Semantiska CSS-variabler driver Tailwind-utilities så samma komponenter anpassar sig när varumärke, tema eller ljust/mörkt läge byts.",
+        "docs.overview.architecture": "Inställningar sätter data-brand, data-theme och light|dark på html. Varumärkes-CSS skriver över tokenvärden; komponenter använder utilities som bg-primary.",
+        "docs.overview.brandsTitle": "Varumärken",
+        "docs.overview.brandsBody": "Tre kasinovarumärken för schematest.",
+        "docs.overview.themesTitle": "Teman och lägen",
+        "docs.overview.themesBody": "Varje varumärke har default- och alt-scheman plus light och dark.",
+        "docs.overview.breakpointTitle": "Layout-brytpunkt",
+        "docs.overview.breakpointBody": "Desktop-shell (vänsternav) från 1280px; mobil bottennav under.",
+        "docs.overview.tokensTitle": "Tokenkatalog",
+        "docs.overview.tokensBody": "Bläddra live-värden och exportera till verktyg.",
+        "docs.tokens.live": "Live-värden för aktivt varumärke / tema / läge",
+        "docs.exportTitle": "Exportera tokens",
+        "docs.exportBody": "Ladda ner eller kopiera den aktuella tokensättet i önskat format.",
+        "docs.exportFormat": "Format",
+        "docs.copy": "Kopiera",
+        "docs.copied": "Kopierat",
+        "docs.download": "Ladda ner",
+        "docs.exportHint": "Exporterar {{brand}} · {{theme}} · {{colorMode}}",
+        "docs.components.intro": "Kärnprimitiver kopplade till semantiska tokens. Byt varumärke/tema via debug-menyn.",
+        "docs.components.button": "Varianter mappar hover och pressed till dedikerade tokensteg."
+      }
+    },
+    {
+      "id": "kanuuna-fi-cta",
+      "scope": {
+        "brand": "kanuuna",
+        "country": "FI",
+        "locale": "fi-FI"
+      },
+      "messages": {
+        "welcome.cta": "Pelaa nyt"
+      }
+    }
+  ],
+  "tokenLayers": [
+    {
+      "id": "tenant-tokens-default",
+      "scope": {},
+      "tokens": {
+        "primary": "#ff1fb3",
+        "primary-hover": "#ff5fdf",
+        "primary-pressed": "#b22696",
+        "primary-foreground": "#e1e1e1",
+        "secondary": "#0bf6fe",
+        "secondary-hover": "#39f8fe",
+        "secondary-pressed": "#01d8df",
+        "secondary-foreground": "#190828",
+        "background": "#190828",
+        "card": "#250c3c",
+        "foreground": "#e1e1e1",
+        "backdrop": "#000000",
+        "background-subtle": "#321051",
+        "background-muted": "#401466"
+      }
+    },
+    {
+      "id": "brand-lonkero-dark",
+      "scope": {
+        "brand": "lonkero",
+        "theme": "default",
+        "colorMode": "dark"
+      },
+      "tokens": {
+        "primary": "#10b981",
+        "primary-hover": "#34d399",
+        "primary-pressed": "#059669",
+        "secondary": "#f59e0b",
+        "background": "#061410",
+        "card": "#0a1c16"
+      }
+    },
+    {
+      "id": "brand-fyffe-dark",
+      "scope": {
+        "brand": "fyffe",
+        "theme": "default",
+        "colorMode": "dark"
+      },
+      "tokens": {
+        "primary": "#f5c518",
+        "primary-hover": "#ffd54f",
+        "primary-pressed": "#d4a017",
+        "secondary": "#3b82f6",
+        "background": "#0a0e1a",
+        "card": "#101828"
+      }
+    }
+  ]
+}

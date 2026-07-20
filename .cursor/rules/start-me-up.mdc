@@ -1,0 +1,10 @@
+---
+description: Point agents at start-me-up when the user wants to bootstrap the project after clone.
+alwaysApply: true
+---
+
+# Blixx DS agent routing
+
+- Read [`AGENTS.md`](AGENTS.md) for stack, commands, and conventions.
+- If the user says **start me up**, get me started, bootstrap, set up, or install and run: follow [`.cursor/skills/start-me-up/SKILL.md`](../skills/start-me-up/SKILL.md).
+- After a successful start, point them to http://localhost:5173/getting-started

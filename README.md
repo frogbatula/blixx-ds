@@ -16,9 +16,20 @@ Tokens are seeded from the [Blixx DS Figma colours](https://www.figma.com/design
 ## Quick start
 
 ```bash
-npm install
+npm ci   # or: npm install
 npm run dev
 ```
+
+Then open http://localhost:5173/getting-started for a short success page and command cheat sheet.
+
+### AI-assisted start (“start me up”)
+
+Clone the repo, open it in Cursor or Claude Code, and say **start me up** (or `/start-me-up`). Agent instructions live in [`AGENTS.md`](AGENTS.md) / [`CLAUDE.md`](CLAUDE.md); the workflow skill is duplicated for both editors:
+
+- [`.claude/skills/start-me-up/`](.claude/skills/start-me-up/)
+- [`.cursor/skills/start-me-up/`](.cursor/skills/start-me-up/)
+
+Requires **Node.js 22+**.
 
 | Script | Description |
 | --- | --- |
@@ -80,18 +91,52 @@ Create a second Pages project (e.g. `blixx-ds-storybook`) with:
 - **Build command:** `npm run build-storybook`
 - **Output directory:** `storybook-static`
 
+## Mission Control (CMS POC)
+
+In-app content CMS for the Content team — multi-tenant inheritance without a database for this POC.
+
+- **URL:** http://localhost:5173/cms
+- **Passcode:** `blixx`
+- **Also:** Debug menu gear → Mission Control
+
+| Area | What it does |
+| --- | --- |
+| Copy | Edit locale keys with tenant → brand → country → language inheritance |
+| Design tokens | Override semantic tokens per brand / theme / light-dark |
+| Publish | Download flat locale JSON (and token CSS) for the site |
+
+Source of truth for edits: [`cms/data/happymoney.json`](cms/data/happymoney.json) (working seed). Drafts save to `localStorage`.
+
+**Factory defaults (safety net):** [`src/cms/factory/`](src/cms/factory/) is an immutable backup of locales + tenant JSON. Publish never writes there. The live app always merges factory under `src/i18n/locales`, so missing keys still resolve. In Mission Control, **Restore factory defaults** clears the draft, reloads the factory tenant, resets runtime copy, and (with local `npm run dev`) copies factory files back onto disk.
+
+**Publish flow (POC):**
+
+1. Edit copy/tokens in Mission Control  
+2. **Publish now** — saves draft, applies strings to the running app, and (with local `npm run dev`) merges into `src/i18n/locales/*.json` + updates working seed JSON (not factory)  
+3. **Export** (optional) — download JSON for git/CI when you’re on Cloudflare Pages or another host without the local write API  
+
+Production later: same inheritance model, but step 2 writes to a database and CI exports flat files.
+
 ## Project layout
 
 ```
+cms/data/           # working tenant seed (publishable)
 src/
-  app/           # layout, providers, locale sync
-  brands/        # per-brand theme CSS (default|alt × dark|light)
-  components/ui/ # Button, Card, Input, Badge, Separator
+  app/              # layout, providers, locale sync
+  brands/           # per-brand theme CSS (default|alt × dark|light)
+  cms/
+    factory/        # immutable backup defaults (never overwritten by publish)
+    seed/           # last published working copy
+  components/ui/    # Button, Card, Input, Badge, Separator
   components/navigation/
   i18n/
   mock/
-  pages/
+  pages/            # includes GettingStartedPage at /getting-started
   styles/globals.css
+AGENTS.md           # shared AI agent instructions (Cursor + others)
+CLAUDE.md           # Claude Code entrypoint → AGENTS.md + skills
+.claude/skills/     # Claude Code skills (e.g. start-me-up)
+.cursor/skills/     # Cursor skills (mirrored)
 ```
 
 ## License
