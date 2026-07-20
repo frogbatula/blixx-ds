@@ -44,8 +44,8 @@ const defaults: Preferences = {
   brand: 'kanuuna',
   theme: 'default',
   colorMode: 'dark',
-  country: 'FI',
-  locale: 'fi-FI',
+  country: 'GB',
+  locale: 'en-GB',
 }
 
 function isBrand(v: unknown): v is Brand {

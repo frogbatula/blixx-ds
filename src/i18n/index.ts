@@ -14,11 +14,12 @@ void i18n
       en: { translation: en },
       sv: { translation: sv },
     },
+    lng: 'en',
     fallbackLng: 'en',
     supportedLngs: ['fi', 'en', 'sv'],
     interpolation: { escapeValue: false },
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: [],
       caches: [],
     },
   })
