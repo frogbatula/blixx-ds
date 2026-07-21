@@ -24,6 +24,10 @@ const commands = [
     cmd: 'npm run lint',
     note: 'Run Oxlint on the project.',
   },
+  {
+    cmd: 'git checkout -b feat/… && git push -u origin HEAD',
+    note: 'Share work on a branch — not main. Cloudflare builds a preview URL.',
+  },
 ] as const
 
 const urls = [
@@ -142,6 +146,15 @@ export function GettingStartedPage() {
           skill for Cursor and Claude Code. After cloning, open the project in
           your editor and ask the agent to start you up — it will install
           packages, run the dev server, and send you here.
+        </p>
+        <p className="max-w-2xl text-sm leading-relaxed text-foreground/75">
+          For GitHub basics and how to share a{' '}
+          <strong className="font-medium text-foreground">
+            testing URL without pushing to main
+          </strong>
+          , see the README sections{' '}
+          <em>Using GitHub</em> and <em>Publish a testing URL</em> in the repo
+          root.
         </p>
       </section>
     </div>

@@ -7,6 +7,7 @@ Project instructions for Claude Code. Canonical shared guidance lives in [`AGENT
 | User says | Do this |
 | --- | --- |
 | `start me up` / get me started / bootstrap / set up | Load and follow [`.claude/skills/start-me-up/SKILL.md`](.claude/skills/start-me-up/SKILL.md) |
+| preview URL / test link / share without main | Point to [`README.md`](README.md#publish-a-testing-url-without-pushing-to-main); use a feature branch preview, not production deploy |
 | CMS / Mission Control / factory restore | See `AGENTS.md` + `README.md` Mission Control section |
 
 ## Skills in this repo

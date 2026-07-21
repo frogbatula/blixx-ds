@@ -42,6 +42,13 @@ Do not improvise a different install flow unless that skill fails.
 | `/docs` | Token / component docs |
 | `/cms` | Mission Control (passcode `blixx`) |
 
+## GitHub & preview URLs
+
+- Prefer **feature branches + PRs**; do not push casual experiments to `main`.
+- **Testing URL without merging to `main`:** push the branch (or open a draft PR). Cloudflare Pages builds a preview — see [`README.md`](README.md#publish-a-testing-url-without-pushing-to-main).
+- CLI preview (not production): `npm run build && npx wrangler pages deploy dist --project-name=blixx-ds --branch="$(git branch --show-current)"`
+- Do not run a bare `wrangler pages deploy` (no `--branch`) for testing — that updates production.
+
 ## Conventions agents must respect
 
 - Prefer existing UI primitives under `src/components/ui/` and brand tokens over one-off styles.
@@ -53,5 +60,6 @@ Do not improvise a different install flow unless that skill fails.
 ## Further reading
 
 - Human README: [`README.md`](README.md)
+- GitHub workflow + preview URLs: [`README.md` — Using GitHub](README.md#using-github)
 - Claude Code entry: [`CLAUDE.md`](CLAUDE.md)
 - Factory defaults / CMS: [`README.md`](README.md#mission-control-cms-poc)

@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from 'react'
 import type { Preview, Decorator } from '@storybook/react-vite'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import '@/styles/globals.css'
 
 function ThemeShell({
@@ -35,7 +36,9 @@ const withTheme: Decorator = (Story, context) => {
 
   return (
     <ThemeShell brand={brand} theme={theme} colorMode={colorMode}>
-      <Story />
+      <TooltipProvider>
+        <Story />
+      </TooltipProvider>
     </ThemeShell>
   )
 }
