@@ -35,14 +35,14 @@ function CmsShellInner() {
 
   return (
     <div className="flex min-h-dvh bg-background text-foreground">
-      <aside className="hidden w-56 shrink-0 flex-col border-r border-border-muted bg-nav text-nav-foreground md:flex">
+      <aside className="sticky top-0 hidden h-dvh w-56 shrink-0 flex-col border-r border-border-muted bg-nav text-nav-foreground md:flex">
         <div className="border-b border-border-muted px-4 py-4">
           <p className="text-[10px] tracking-wide text-nav-foreground/50 uppercase">
             HubHQ
           </p>
           <p className="font-semibold">{doc.name}</p>
         </div>
-        <nav className="flex flex-1 flex-col gap-1 p-2">
+        <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-2">
           {nav.map((item) => {
             const Icon = item.icon
             return (

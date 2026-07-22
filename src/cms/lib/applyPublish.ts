@@ -50,6 +50,11 @@ export async function publishToDisk(
         tenantDocument: doc,
       }),
     })
+    // 404/405 means the Vite publish endpoint isn't available (production Pages)
+    // — that's expected, fall back to runtime-only mode
+    if (res.status === 404 || res.status === 405) {
+      return { ok: true, mode: 'runtime-only' }
+    }
     if (!res.ok) {
       const data = (await res.json().catch(() => ({}))) as { error?: string }
       return {
