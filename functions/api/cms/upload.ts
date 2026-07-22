@@ -2,10 +2,7 @@
  * Cloudflare Pages Function — POST /api/cms/upload
  * Bindings: CMS_ASSETS (R2). Secrets: CMS_UPLOAD_SECRET, R2_PUBLIC_BASE_URL
  */
-import {
-  extForMime,
-  validateUploadMeta,
-} from '../../src/cms/lib/assetLimits'
+import { extForMime, validateUploadMeta } from '../../lib/assetLimits'
 
 type R2BucketLike = {
   put: (
