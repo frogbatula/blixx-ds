@@ -22,6 +22,8 @@ import { CmsCopyPage } from '@/cms/pages/CmsCopyPage'
 import { CmsTokensPage } from '@/cms/pages/CmsTokensPage'
 import { CmsPublishPage } from '@/cms/pages/CmsPublishPage'
 import { CmsAssetsPage } from '@/cms/pages/CmsAssetsPage'
+import { CmsGamesPage } from '@/cms/pages/CmsGamesPage'
+import { CmsPromosPage } from '@/cms/pages/CmsPromosPage'
 import { CmsSettingsPage } from '@/cms/pages/CmsSettingsPage'
 
 export function App() {
@@ -33,6 +35,8 @@ export function App() {
             <Routes>
               <Route path="cms" element={<CmsGate />}>
                 <Route index element={<CmsDashboardPage />} />
+                <Route path="games" element={<CmsGamesPage />} />
+                <Route path="promos" element={<CmsPromosPage />} />
                 <Route path="copy" element={<CmsCopyPage />} />
                 <Route path="tokens" element={<CmsTokensPage />} />
                 <Route path="assets" element={<CmsAssetsPage />} />

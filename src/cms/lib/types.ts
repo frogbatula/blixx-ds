@@ -48,6 +48,59 @@ export type TenantAsset = {
   updatedAt: string
 }
 
+export const GAME_CATEGORIES = [
+  'popular',
+  'slots',
+  'live',
+  'jackpots',
+  'new',
+  'table',
+] as const
+export type GameCategory = (typeof GAME_CATEGORIES)[number]
+
+export const GAME_CATEGORY_LABELS: Record<GameCategory, string> = {
+  popular: 'Popular',
+  slots: 'Slots',
+  live: 'Live Casino',
+  jackpots: 'Jackpots',
+  new: 'New Games',
+  table: 'Table Games',
+}
+
+export type GameItem = {
+  id: string
+  slug: string
+  name: string
+  provider?: string
+  categories: GameCategory[]
+  /** Asset ID from TenantAsset (kind: game-tile) */
+  tileAssetId?: string
+  /** Direct URL if not using asset library */
+  tileUrl?: string
+  active: boolean
+  order: number
+  createdAt: string
+  updatedAt: string
+}
+
+export type PromoItem = {
+  id: string
+  slug: string
+  title: string
+  subtitle?: string
+  body?: string
+  /** Asset ID from TenantAsset (kind: banner) */
+  bannerAssetId?: string
+  /** Direct URL if not using asset library */
+  bannerUrl?: string
+  active: boolean
+  startDate?: string
+  endDate?: string
+  order: number
+  createdAt: string
+  updatedAt: string
+}
+
 export type TenantDocument = {
   tenantId: string
   name: string
@@ -55,6 +108,8 @@ export type TenantDocument = {
   messageLayers: MessageLayer[]
   tokenLayers: TokenLayer[]
   assets: TenantAsset[]
+  games: GameItem[]
+  promos: PromoItem[]
 }
 
 export type MessageContext = {

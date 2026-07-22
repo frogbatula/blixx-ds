@@ -7,6 +7,8 @@ import {
   Building2,
   ArrowLeft,
   Image,
+  Dices,
+  Gift,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -17,6 +19,8 @@ import { setCmsAuthenticated } from '@/cms/lib/storage'
 
 const nav = [
   { to: '/cms', end: true, label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/cms/games', end: false, label: 'Games', icon: Dices },
+  { to: '/cms/promos', end: false, label: 'Promotions', icon: Gift },
   { to: '/cms/copy', end: false, label: 'Copy', icon: Type },
   { to: '/cms/tokens', end: false, label: 'Design tokens', icon: Palette },
   { to: '/cms/assets', end: false, label: 'Assets', icon: Image },
