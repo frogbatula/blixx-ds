@@ -143,7 +143,8 @@ Only needed once per team / project:
    - **Framework preset:** Vite
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
-   - **Node version:** 22 (or latest LTS)
+   - **Node version:** 22 (repo includes `.nvmrc`; or set env `NODE_VERSION=22`)
+   - Ensure install includes **devDependencies** (repo `.npmrc` sets `production=false` — required so Vite/TypeScript install under `NODE_ENV=production`)
 
 4. Production URL tracks **`main`**. Branch / PR pushes get separate preview URLs.
 
