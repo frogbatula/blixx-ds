@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Card,
@@ -9,26 +10,45 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { HeroBanner } from '@/components/ui/hero-banner'
 import { useTenantDocument } from '@/cms/lib/useTenantDocument'
+import type { PromoItem } from '@/cms/lib/types'
 
-const FALLBACK = ['Welcome bonus', 'Reload', 'Cashback']
+const FALLBACK = [
+  { id: 'f1', title: 'Welcome bonus', subtitle: 'Get started with a match bonus' },
+  { id: 'f2', title: 'Reload', subtitle: 'Weekly deposit boost' },
+  { id: 'f3', title: 'Cashback', subtitle: 'Get back a percentage of losses' },
+]
 
 export function PromotionsPage() {
   const { t } = useTranslation()
   const { doc } = useTenantDocument()
-  const banners = (doc.assets ?? []).filter((a) => a.kind === 'banner')
+
+  const assetMap = useMemo(
+    () => new Map((doc.assets ?? []).map((a) => [a.id, a.url])),
+    [doc.assets],
+  )
+
+  const resolveUrl = (promo: PromoItem): string | undefined => {
+    if (promo.bannerUrl) return promo.bannerUrl
+    if (promo.bannerAssetId) return assetMap.get(promo.bannerAssetId)
+    return undefined
+  }
+
+  const promos = (doc.promos ?? []).filter((p) => p.active)
+  const useCms = promos.length > 0
 
   return (
     <div className="flex flex-col gap-6">
-      {banners.length > 0 ? (
+      {useCms ? (
         <div className="flex flex-col gap-4">
-          {banners.map((banner, index) => (
+          {promos.map((promo, index) => (
             <HeroBanner
-              key={banner.id}
+              key={promo.id}
               size={index === 0 ? 'lg' : 'md'}
               headingLevel={index === 0 ? 'h1' : 'h2'}
-              title={banner.label || banner.alt}
-              imageSrc={banner.url}
-              imageAlt={banner.alt}
+              title={promo.title}
+              description={promo.subtitle}
+              imageSrc={resolveUrl(promo)}
+              imageAlt={promo.title}
               eyebrow={<Badge variant="success">Live</Badge>}
             />
           ))}
@@ -49,17 +69,19 @@ export function PromotionsPage() {
           <CardDescription>{t('pages.promotionsBody')}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
-          {(banners.length > 0
-            ? banners.map((b) => b.label || b.alt)
-            : FALLBACK
-          ).map((title) => (
+          {(useCms ? promos : FALLBACK).map((item) => (
             <div
-              key={title}
+              key={item.id}
               className="flex items-center justify-between rounded-xl border border-border-muted bg-background-subtle px-4 py-3"
             >
-              <span className="font-medium">{title}</span>
-              <Badge variant="success">
-                {banners.length > 0 ? 'Live' : 'Mock'}
+              <div>
+                <span className="font-medium">{item.title}</span>
+                {item.subtitle && (
+                  <p className="text-sm text-foreground/60">{item.subtitle}</p>
+                )}
+              </div>
+              <Badge variant={useCms ? 'success' : 'outline'}>
+                {useCms ? 'Live' : 'Mock'}
               </Badge>
             </div>
           ))}

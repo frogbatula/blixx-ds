@@ -295,6 +295,24 @@
   ],
   "assets": [
     {
+      "id": "87add9a2-9b4f-4201-9626-03acd3f4bfc7",
+      "kind": "banner",
+      "url": "/cms/uploads/blixx-gaming/banner/shared/asset/a3340873-ad25-48d7-bf95-0143a80f4b07.png",
+      "key": "blixx-gaming/banner/shared/asset/a3340873-ad25-48d7-bf95-0143a80f4b07.png",
+      "alt": "AppIcon-iOS-Default-1024x1024@1x.png",
+      "label": "AppIcon-iOS-Default-1024x1024@1x.png",
+      "updatedAt": "2026-07-22T14:55:10.940Z"
+    },
+    {
+      "id": "eea5618d-b32d-4b9d-be39-13557a8e12c1",
+      "kind": "banner",
+      "url": "/cms/uploads/blixx-gaming/banner/shared/asset/82da7fb4-a854-4af2-8866-ce9fdfc0d7f2.png",
+      "key": "blixx-gaming/banner/shared/asset/82da7fb4-a854-4af2-8866-ce9fdfc0d7f2.png",
+      "alt": "AppIcon.png",
+      "label": "AppIcon.png",
+      "updatedAt": "2026-07-22T14:54:52.381Z"
+    },
+    {
       "id": "90b856f5-4c50-401a-b3d2-ba9968cbdbd4",
       "kind": "game-tile",
       "url": "/cms/uploads/blixx-gaming/game-tile/shared/asset/515583f9-b16f-4971-9fab-f42101767895.png",
@@ -320,5 +338,6 @@
       "createdAt": "2026-07-22T14:43:59.985Z",
       "updatedAt": "2026-07-22T14:49:28.890Z"
     }
-  ]
+  ],
+  "promos": []
 }
