@@ -3,6 +3,7 @@ compatibility_date = "2026-07-20"
 pages_build_output_dir = "dist"
 
 # R2 bucket for HubHQ uploads (create with: npx wrangler r2 bucket create blixx-ds-assets)
+# Binding cannot be "ASSETS" — that name is reserved by Cloudflare Pages.
 [[r2_buckets]]
-binding = "ASSETS"
+binding = "CMS_ASSETS"
 bucket_name = "blixx-ds-assets"

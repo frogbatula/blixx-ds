@@ -198,7 +198,7 @@ Source of truth for edits: [`cms/data/blixx-gaming.json`](cms/data/blixx-gaming.
   1. `npx wrangler r2 bucket create blixx-ds-assets`
   2. Enable public access on the bucket (or a custom domain) and set `R2_PUBLIC_BASE_URL`
   3. Set Pages secret `CMS_UPLOAD_SECRET`
-  4. [`wrangler.toml`](wrangler.toml) already binds `ASSETS` → `blixx-ds-assets`
+  4. [`wrangler.toml`](wrangler.toml) already binds `CMS_ASSETS` → `blixx-ds-assets` (not `ASSETS` — that name is reserved by Pages)
   5. Upload handler: [`functions/api/cms/upload.ts`](functions/api/cms/upload.ts)
 
 Copy [`.env.example`](.env.example) for local secret overrides.

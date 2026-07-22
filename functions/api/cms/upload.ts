@@ -1,6 +1,6 @@
 /**
  * Cloudflare Pages Function — POST /api/cms/upload
- * Bindings: ASSETS (R2). Secrets: CMS_UPLOAD_SECRET, R2_PUBLIC_BASE_URL
+ * Bindings: CMS_ASSETS (R2). Secrets: CMS_UPLOAD_SECRET, R2_PUBLIC_BASE_URL
  */
 import {
   extForMime,
@@ -16,7 +16,7 @@ type R2BucketLike = {
 }
 
 type UploadEnv = {
-  ASSETS?: R2BucketLike
+  CMS_ASSETS?: R2BucketLike
   CMS_UPLOAD_SECRET?: string
   R2_PUBLIC_BASE_URL?: string
 }
@@ -38,12 +38,12 @@ export async function onRequestPost(context: {
     return json({ ok: false, error: 'Unauthorized' }, 401)
   }
 
-  if (!context.env.ASSETS) {
+  if (!context.env.CMS_ASSETS) {
     return json(
       {
         ok: false,
         error:
-          'R2 binding ASSETS missing. Configure wrangler.toml and set R2_PUBLIC_BASE_URL.',
+          'R2 binding CMS_ASSETS missing. Configure wrangler.toml and set R2_PUBLIC_BASE_URL.',
       },
       503,
     )
@@ -78,7 +78,7 @@ export async function onRequestPost(context: {
   const key = `${tenantId}/${checked.kind}/${brand}/${slot}/${id}.${ext}`
   const body = await file.arrayBuffer()
 
-  await context.env.ASSETS.put(key, body, {
+  await context.env.CMS_ASSETS.put(key, body, {
     httpMetadata: { contentType: mime },
   })
 
