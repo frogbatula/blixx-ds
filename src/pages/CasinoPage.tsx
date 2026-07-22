@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Card,
@@ -8,6 +9,7 @@ import {
 } from '@/components/ui/card'
 import { GameTile } from '@/components/ui/game-tile'
 import { useTenantDocument } from '@/cms/lib/useTenantDocument'
+import type { GameItem } from '@/cms/lib/types'
 
 const FALLBACK_TILES = [
   { id: 'casino-slots', label: 'Slots', subtitle: 'Category' },
@@ -21,7 +23,19 @@ const FALLBACK_TILES = [
 export function CasinoPage() {
   const { t } = useTranslation()
   const { doc } = useTenantDocument()
-  const tiles = (doc.assets ?? []).filter((a) => a.kind === 'game-tile')
+
+  const assetMap = useMemo(
+    () => new Map((doc.assets ?? []).map((a) => [a.id, a.url])),
+    [doc.assets],
+  )
+
+  const resolveUrl = (game: GameItem): string | undefined => {
+    if (game.tileUrl) return game.tileUrl
+    if (game.tileAssetId) return assetMap.get(game.tileAssetId)
+    return undefined
+  }
+
+  const games = (doc.games ?? []).filter((g) => g.active)
 
   return (
     <Card>
@@ -31,15 +45,15 @@ export function CasinoPage() {
       </CardHeader>
       <CardContent>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {tiles.length > 0
-            ? tiles.map((tile) => (
+          {games.length > 0
+            ? games.map((game) => (
                 <GameTile
-                  key={tile.id}
-                  gameId={tile.id}
-                  label={tile.label || tile.alt}
-                  subtitle={tile.subtitle}
-                  imageSrc={tile.url}
-                  imageAlt={tile.alt}
+                  key={game.id}
+                  gameId={game.id}
+                  label={game.name}
+                  subtitle={game.provider}
+                  imageSrc={resolveUrl(game)}
+                  imageAlt={game.name}
                 />
               ))
             : FALLBACK_TILES.map((tile) => (
