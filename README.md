@@ -143,8 +143,10 @@ Only needed once per team / project:
    - **Framework preset:** Vite
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
-   - **Node version:** 22 (repo includes `.nvmrc`; or set env `NODE_VERSION=22`)
-   - Ensure install includes **devDependencies** (repo `.npmrc` sets `production=false` — required so Vite/TypeScript install under `NODE_ENV=production`)
+   - **Node version:** 22.14+ (repo pins `.nvmrc` / `.node-version` to `22.14.0`; Vite 8 needs `^20.19 || >=22.12`)
+   - Build tooling (Vite/TypeScript/Tailwind) lives in **dependencies** so Pages installs them even if production omit is on.
+   - Repo `.npmrc` also sets `production=false` and skips Playwright browser downloads during install.
+   - If builds still fail on an old Pages image: Settings → Build system version → **v3**, and set env `NODE_VERSION=22.14.0`
 
 4. Production URL tracks **`main`**. Branch / PR pushes get separate preview URLs.
 
