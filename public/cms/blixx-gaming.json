@@ -339,5 +339,17 @@
       "updatedAt": "2026-07-22T14:49:28.890Z"
     }
   ],
-  "promos": []
+  "promos": [
+    {
+      "id": "a9b1280d-fb65-4a7f-84cf-7d4bb0d025fc",
+      "slug": "welcome-bonus",
+      "title": "Welcome Bonus",
+      "bannerAssetId": "87add9a2-9b4f-4201-9626-03acd3f4bfc7",
+      "bannerUrl": "/cms/uploads/blixx-gaming/banner/shared/asset/a3340873-ad25-48d7-bf95-0143a80f4b07.png",
+      "active": true,
+      "order": 0,
+      "createdAt": "2026-07-22T14:57:36.904Z",
+      "updatedAt": "2026-07-22T14:57:36.904Z"
+    }
+  ]
 }

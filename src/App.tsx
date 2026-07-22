@@ -10,6 +10,7 @@ import { CasinoPage } from '@/pages/CasinoPage'
 import { LiveCasinoPage } from '@/pages/LiveCasinoPage'
 import { SportsPage } from '@/pages/SportsPage'
 import { PromotionsPage } from '@/pages/PromotionsPage'
+import { PromoDetailPage } from '@/pages/PromoDetailPage'
 import { ProfilePage } from '@/pages/ProfilePage'
 import { GameLaunchPage } from '@/pages/GameLaunchPage'
 import { DocsLayout } from '@/pages/docs/DocsLayout'
@@ -51,6 +52,7 @@ export function App() {
                 <Route path="live" element={<LiveCasinoPage />} />
                 <Route path="sports" element={<SportsPage />} />
                 <Route path="promotions" element={<PromotionsPage />} />
+                <Route path="promotions/:promoId" element={<PromoDetailPage />} />
                 <Route path="profile" element={<ProfilePage />} />
                 <Route path="docs" element={<DocsLayout />}>
                   <Route index element={<DocsOverviewPage />} />
