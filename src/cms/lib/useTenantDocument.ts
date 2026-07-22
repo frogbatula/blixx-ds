@@ -13,6 +13,8 @@ function normalize(doc: TenantDocument): TenantDocument {
   return {
     ...doc,
     assets: Array.isArray(doc.assets) ? doc.assets : [],
+    games: Array.isArray(doc.games) ? doc.games : [],
+    promos: Array.isArray(doc.promos) ? doc.promos : [],
   }
 }
 
