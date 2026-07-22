@@ -18,7 +18,7 @@ export function CmsDashboardPage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
         <p className="mt-1 text-sm text-foreground/70">
-          Multi-tenant Mission Control for {doc.name}. Edits inherit from
+          Multi-tenant HubHQ for {doc.name}. Edits inherit from
           tenant defaults down to brand, country, and locale.
         </p>
       </div>

@@ -33,7 +33,7 @@ const commands = [
 const urls = [
   { href: '/', label: 'Welcome / casino shell' },
   { href: '/docs', label: 'Design-system docs' },
-  { href: '/cms', label: 'Mission Control CMS' },
+  { href: '/cms', label: 'HubHQ CMS' },
 ] as const
 
 export function GettingStartedPage() {
@@ -116,7 +116,7 @@ export function GettingStartedPage() {
           ))}
         </ul>
         <p className="text-sm text-foreground/65">
-          Mission Control passcode:{' '}
+          HubHQ passcode:{' '}
           <code className="rounded bg-background-subtle px-1.5 py-0.5 font-mono text-xs">
             blixx
           </code>

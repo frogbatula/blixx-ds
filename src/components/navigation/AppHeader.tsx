@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { LogIn, Plus, User } from 'lucide-react'
 import { usePreferences } from '@/app/PreferencesProvider'
 import { useAuth } from '@/app/AuthProvider'
 import { Button } from '@/components/ui/button'
+import { BrandIcon } from '@/components/ui/brand-icon'
 import { countryCurrency } from '@/mock/user'
 
 function formatBalance(
@@ -64,7 +64,7 @@ export function AppHeader() {
               variant="primary"
               className="hidden sm:inline-flex"
             >
-              <Plus className="size-4" />
+              <BrandIcon slot="header.deposit" className="size-4" />
               {t('header.deposit')}
             </Button>
             <Button
@@ -74,7 +74,7 @@ export function AppHeader() {
               className="size-9 sm:hidden"
               aria-label={t('header.deposit')}
             >
-              <Plus className="size-4" />
+              <BrandIcon slot="header.deposit" className="size-4" />
             </Button>
 
             <Button
@@ -85,7 +85,7 @@ export function AppHeader() {
               aria-label={t('header.account')}
             >
               <Link to="/profile">
-                <User className="size-4" />
+                <BrandIcon slot="header.account" className="size-4" />
               </Link>
             </Button>
           </>
@@ -98,7 +98,7 @@ export function AppHeader() {
               className="border-border-muted"
               onClick={login}
             >
-              <LogIn className="size-4" />
+              <BrandIcon slot="header.login" className="size-4" />
               <span className="hidden sm:inline">{t('header.login')}</span>
             </Button>
             <Button asChild size="sm" variant="primary">

@@ -67,7 +67,7 @@ function applyFactoryLocalesToRuntime() {
 }
 
 export function CmsProvider({
-  tenantId = 'happymoney',
+  tenantId = 'blixx-gaming',
   children,
 }: {
   tenantId?: string
@@ -109,7 +109,7 @@ export function CmsProvider({
     const result = await restoreFactoryToDisk()
     if (result.mode === 'disk') {
       setRestoreStatus(
-        'Factory defaults restored to Mission Control, site copy, and disk files.',
+        'Factory defaults restored to HubHQ, site copy, and disk files.',
       )
     } else {
       setRestoreStatus(

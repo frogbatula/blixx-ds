@@ -25,3 +25,11 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# Local HubHQ uploads (R2 stand-in during npm run dev)
+public/cms/uploads/**
+!public/cms/uploads/.gitkeep
+
+.env
+.env.*
+!.env.example

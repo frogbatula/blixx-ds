@@ -1,6 +1,11 @@
 import type { Plugin } from 'vite'
 import fs from 'node:fs'
 import path from 'node:path'
+import { randomUUID } from 'node:crypto'
+import {
+  extForMime,
+  validateUploadMeta,
+} from './src/cms/lib/assetLimits.ts'
 
 export type CmsPublishPayload = {
   locales: Record<string, unknown>
@@ -38,8 +43,28 @@ function copyFile(from: string, to: string) {
   fs.copyFileSync(from, to)
 }
 
+function sendJson(
+  res: import('node:http').ServerResponse,
+  status: number,
+  data: unknown,
+) {
+  res.statusCode = status
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify(data))
+}
+
+function readBody(req: import('node:http').IncomingMessage): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = []
+    req.on('data', (chunk: Buffer) => chunks.push(chunk))
+    req.on('end', () => resolve(Buffer.concat(chunks)))
+    req.on('error', reject)
+  })
+}
+
 /**
  * Local-dev CMS endpoints:
+ * - POST /api/cms/upload — store file under public/cms/uploads (R2 stand-in)
  * - POST /__cms/publish — merge resolved locales into src/i18n/locales (+ update seed)
  * - POST /__cms/restore-factory — copy immutable factory defaults back onto disk
  *
@@ -50,7 +75,9 @@ export function cmsPublishPlugin(rootDir: string): Plugin {
     name: 'blixx-cms-publish',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (req.url === '/__cms/restore-factory' && req.method === 'POST') {
+        const url = req.url?.split('?')[0] ?? ''
+
+        if (url === '/__cms/restore-factory' && req.method === 'POST') {
           try {
             const factoryDir = path.join(rootDir, 'src/cms/factory')
             const locales = ['en.json', 'fi.json', 'sv.json']
@@ -60,38 +87,94 @@ export function cmsPublishPlugin(rootDir: string): Plugin {
                 path.join(rootDir, 'src/i18n/locales', file),
               )
             }
-            const tenant = path.join(factoryDir, 'happymoney.json')
-            copyFile(tenant, path.join(rootDir, 'src/cms/seed/happymoney.json'))
-            copyFile(tenant, path.join(rootDir, 'cms/data/happymoney.json'))
-            copyFile(tenant, path.join(rootDir, 'public/cms/happymoney.json'))
+            const tenant = path.join(factoryDir, 'blixx-gaming.json')
+            copyFile(tenant, path.join(rootDir, 'src/cms/seed/blixx-gaming.json'))
+            copyFile(tenant, path.join(rootDir, 'cms/data/blixx-gaming.json'))
+            copyFile(tenant, path.join(rootDir, 'public/cms/blixx-gaming.json'))
 
-            res.statusCode = 200
-            res.setHeader('Content-Type', 'application/json')
-            res.end(JSON.stringify({ ok: true }))
+            sendJson(res, 200, { ok: true })
           } catch (err) {
-            res.statusCode = 500
-            res.setHeader('Content-Type', 'application/json')
-            res.end(
-              JSON.stringify({
-                ok: false,
-                error: err instanceof Error ? err.message : 'Restore failed',
-              }),
-            )
+            sendJson(res, 500, {
+              ok: false,
+              error: err instanceof Error ? err.message : 'Restore failed',
+            })
           }
           return
         }
 
-        if (req.method !== 'POST' || req.url !== '/__cms/publish') {
+        if (url === '/api/cms/upload' && req.method === 'POST') {
+          void (async () => {
+            try {
+              const secret =
+                process.env.CMS_UPLOAD_SECRET || process.env.VITE_CMS_UPLOAD_SECRET || 'blixx'
+              const auth = req.headers['x-cms-upload-secret']
+              if (auth !== secret) {
+                sendJson(res, 401, { ok: false, error: 'Unauthorized' })
+                return
+              }
+
+              const raw = await readBody(req)
+              const contentType = req.headers['content-type'] ?? ''
+              const request = new Request('http://localhost/api/cms/upload', {
+                method: 'POST',
+                headers: { 'content-type': contentType },
+                body: raw,
+              })
+              const form = await request.formData()
+              const file = form.get('file')
+              const kindRaw = String(form.get('kind') ?? '')
+              const tenantId = String(form.get('tenantId') ?? 'blixx-gaming')
+              const brand = String(form.get('brand') ?? 'shared')
+              const slot = String(form.get('slot') ?? 'asset')
+
+              if (!(file instanceof File)) {
+                sendJson(res, 400, { ok: false, error: 'Missing file field' })
+                return
+              }
+
+              const mime = file.type || 'application/octet-stream'
+              const bytes = file.size
+              const checked = validateUploadMeta({ kind: kindRaw, mime, bytes })
+              if (!checked.ok) {
+                sendJson(res, 400, { ok: false, error: checked.error })
+                return
+              }
+
+              const ext = extForMime(mime)
+              const id = randomUUID()
+              const key = `${tenantId}/${checked.kind}/${brand}/${slot}/${id}.${ext}`
+              const uploadsRoot = path.join(rootDir, 'public/cms/uploads')
+              const target = path.join(uploadsRoot, key)
+              fs.mkdirSync(path.dirname(target), { recursive: true })
+              const buf = Buffer.from(await file.arrayBuffer())
+              fs.writeFileSync(target, buf)
+
+              sendJson(res, 200, {
+                ok: true,
+                url: `/cms/uploads/${key}`,
+                key,
+                contentType: mime,
+                bytes,
+              })
+            } catch (err) {
+              sendJson(res, 500, {
+                ok: false,
+                error: err instanceof Error ? err.message : 'Upload failed',
+              })
+            }
+          })()
+          return
+        }
+
+        if (req.method !== 'POST' || url !== '/__cms/publish') {
           next()
           return
         }
 
-        const chunks: Buffer[] = []
-        req.on('data', (chunk: Buffer) => chunks.push(chunk))
-        req.on('end', () => {
+        void (async () => {
           try {
             const body = JSON.parse(
-              Buffer.concat(chunks).toString('utf8'),
+              (await readBody(req)).toString('utf8'),
             ) as CmsPublishPayload
 
             const localesDir = path.join(rootDir, 'src/i18n/locales')
@@ -106,7 +189,6 @@ export function cmsPublishPlugin(rootDir: string): Plugin {
               const target = path.join(localesDir, filename)
               const factoryFile = path.join(factoryLocales, filename)
 
-              // Always start from factory, then existing live, then publish overlay
               let base: Record<string, unknown> = {}
               if (fs.existsSync(factoryFile)) {
                 base = JSON.parse(
@@ -130,35 +212,28 @@ export function cmsPublishPlugin(rootDir: string): Plugin {
             }
 
             if (body.tenantDocument) {
-              // Update working seed copies only — never factory/
               writeJson(
-                path.join(rootDir, 'cms/data/happymoney.json'),
+                path.join(rootDir, 'cms/data/blixx-gaming.json'),
                 body.tenantDocument,
               )
               writeJson(
-                path.join(rootDir, 'public/cms/happymoney.json'),
+                path.join(rootDir, 'public/cms/blixx-gaming.json'),
                 body.tenantDocument,
               )
               writeJson(
-                path.join(rootDir, 'src/cms/seed/happymoney.json'),
+                path.join(rootDir, 'src/cms/seed/blixx-gaming.json'),
                 body.tenantDocument,
               )
             }
 
-            res.statusCode = 200
-            res.setHeader('Content-Type', 'application/json')
-            res.end(JSON.stringify({ ok: true }))
+            sendJson(res, 200, { ok: true })
           } catch (err) {
-            res.statusCode = 500
-            res.setHeader('Content-Type', 'application/json')
-            res.end(
-              JSON.stringify({
-                ok: false,
-                error: err instanceof Error ? err.message : 'Publish failed',
-              }),
-            )
+            sendJson(res, 500, {
+              ok: false,
+              error: err instanceof Error ? err.message : 'Publish failed',
+            })
           }
-        })
+        })()
       })
     },
   }

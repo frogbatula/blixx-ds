@@ -66,7 +66,7 @@ Tell them clearly:
 1. **You’re up** — open **http://localhost:5173/getting-started** (success + command cheat sheet).
 2. Casino shell: http://localhost:5173
 3. Storybook (optional, separate process): `npm run storybook` → http://localhost:6006
-4. Mission Control: http://localhost:5173/cms — passcode `blixx`
+4. HubHQ: http://localhost:5173/cms — passcode `blixx`
 
 Keep the reply short. Point them at `/getting-started` rather than pasting the whole cheat sheet into chat.
 

@@ -8,7 +8,7 @@ Project instructions for Claude Code. Canonical shared guidance lives in [`AGENT
 | --- | --- |
 | `start me up` / get me started / bootstrap / set up | Load and follow [`.claude/skills/start-me-up/SKILL.md`](.claude/skills/start-me-up/SKILL.md) |
 | preview URL / test link / share without main | Point to [`README.md`](README.md#publish-a-testing-url-without-pushing-to-main); use a feature branch preview, not production deploy |
-| CMS / Mission Control / factory restore | See `AGENTS.md` + `README.md` Mission Control section |
+| CMS / HubHQ / factory restore | See `AGENTS.md` + `README.md` HubHQ section |
 
 ## Skills in this repo
 
@@ -17,6 +17,7 @@ Project skills are under `.claude/skills/`. Invoke with `/skill-name` or by matc
 | Skill | When |
 | --- | --- |
 | `start-me-up` | Fresh clone: install deps, run dev server, point user at `/getting-started` |
+| `frontend-design` | UI motion: smooth eased transitions (no flicker on/off) |
 
 ## Do not
 

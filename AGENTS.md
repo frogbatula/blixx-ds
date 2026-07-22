@@ -4,7 +4,7 @@ Shared guidance for AI coding agents (Cursor, Claude Code, and similar). Keep th
 
 ## What this repo is
 
-Multi-brand casino design-system POC: React 19 + Vite + TypeScript + Tailwind v4 + React Router + i18next + Storybook. Brands: `lonkero`, `kanuuna`, `fyffe`. Mission Control CMS at `/cms` (passcode `blixx`).
+Multi-brand casino design-system POC: React 19 + Vite + TypeScript + Tailwind v4 + React Router + i18next + Storybook. Brands: `lonkero`, `kanuuna`, `fyffe`. HubHQ CMS at `/cms` (passcode `blixx`).
 
 ## Prerequisites
 
@@ -40,7 +40,8 @@ Do not improvise a different install flow unless that skill fails.
 | `/` | Welcome / casino shell |
 | `/getting-started` | Post-setup success + command cheat sheet |
 | `/docs` | Token / component docs |
-| `/cms` | Mission Control (passcode `blixx`) |
+| `/cms` | HubHQ (passcode `blixx`) |
+| `/cms/assets` | HubHQ asset uploads (banners, tiles, brand icons) |
 
 ## GitHub & preview URLs
 
@@ -52,8 +53,11 @@ Do not improvise a different install flow unless that skill fails.
 ## Conventions agents must respect
 
 - Prefer existing UI primitives under `src/components/ui/` and brand tokens over one-off styles.
+- Prefer **smooth, eased transitions** for show/hide and hover UI — see `.cursor/skills/frontend-design/SKILL.md` (also `.claude/skills/frontend-design/`).
 - CMS publish must **never** write into `src/cms/factory/` (immutable factory defaults).
-- Do not commit secrets (`.env`, credentials). This POC has no required env vars for local `npm run dev`.
+- Asset **binaries** live in Cloudflare R2 (or local `public/cms/uploads` during `npm run dev`); tenant JSON only stores URLs/metadata. Do not commit uploaded files.
+- Icon chrome defaults are Lucide (`src/icons/iconRegistry.ts`); brand overrides use `BrandIcon`.
+- Do not commit secrets (`.env`, credentials). Local upload secret defaults to HubHQ passcode `blixx` (override with `CMS_UPLOAD_SECRET`).
 - Do not force-push or amend unless the user explicitly asks.
 - Match existing TypeScript / React patterns; keep diffs focused.
 
@@ -62,4 +66,4 @@ Do not improvise a different install flow unless that skill fails.
 - Human README: [`README.md`](README.md)
 - GitHub workflow + preview URLs: [`README.md` — Using GitHub](README.md#using-github)
 - Claude Code entry: [`CLAUDE.md`](CLAUDE.md)
-- Factory defaults / CMS: [`README.md`](README.md#mission-control-cms-poc)
+- Factory defaults / CMS: [`README.md`](README.md#hubhq-cms-poc)

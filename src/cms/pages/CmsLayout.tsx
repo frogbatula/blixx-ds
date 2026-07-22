@@ -6,6 +6,7 @@ import {
   Upload,
   Building2,
   ArrowLeft,
+  Image,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -18,6 +19,7 @@ const nav = [
   { to: '/cms', end: true, label: 'Dashboard', icon: LayoutDashboard },
   { to: '/cms/copy', end: false, label: 'Copy', icon: Type },
   { to: '/cms/tokens', end: false, label: 'Design tokens', icon: Palette },
+  { to: '/cms/assets', end: false, label: 'Assets', icon: Image },
   { to: '/cms/publish', end: false, label: 'Publish', icon: Upload },
   { to: '/cms/settings', end: false, label: 'Tenants', icon: Building2 },
 ] as const
@@ -36,7 +38,7 @@ function CmsShellInner() {
       <aside className="hidden w-56 shrink-0 flex-col border-r border-border-muted bg-nav text-nav-foreground md:flex">
         <div className="border-b border-border-muted px-4 py-4">
           <p className="text-[10px] tracking-wide text-nav-foreground/50 uppercase">
-            Mission Control
+            HubHQ
           </p>
           <p className="font-semibold">{doc.name}</p>
         </div>
@@ -76,7 +78,7 @@ function CmsShellInner() {
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex flex-wrap items-center gap-2 border-b border-border-muted bg-nav px-4 py-3 text-nav-foreground">
           <div className="md:hidden">
-            <p className="text-sm font-semibold">Mission Control</p>
+            <p className="text-sm font-semibold">HubHQ</p>
           </div>
           <div className="ml-auto flex flex-wrap items-center gap-2">
             {dirty ? <Badge variant="warning">Unsaved draft</Badge> : null}

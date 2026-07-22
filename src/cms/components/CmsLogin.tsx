@@ -29,7 +29,7 @@ export function CmsLogin({ onSuccess }: { onSuccess: () => void }) {
     <div className="flex min-h-dvh items-center justify-center bg-backdrop p-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Mission Control</CardTitle>
+          <CardTitle>HubHQ</CardTitle>
           <CardDescription>
             POC gate — passcode for Content team access.
           </CardDescription>

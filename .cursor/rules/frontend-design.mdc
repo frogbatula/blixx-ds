@@ -1,0 +1,11 @@
+---
+description: Apply Blixx DS motion/easing conventions when changing UI interactions.
+globs: src/components/**/*.{tsx,ts,css}, src/pages/**/*.{tsx,ts}
+alwaysApply: false
+---
+
+# Frontend design motion
+
+When changing hover states, overlays, or other show/hide UI, follow [`.cursor/skills/frontend-design/SKILL.md`](../skills/frontend-design/SKILL.md).
+
+Always prefer smooth, eased transitions over flicker on/off.

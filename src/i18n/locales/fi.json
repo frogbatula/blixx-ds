@@ -3,7 +3,9 @@
     "welcome": "Tervetuloa",
     "casino": "Kasino",
     "promotions": "Kampanjat",
-    "profile": "Profiili"
+    "profile": "Profiili",
+    "live": "Live-kasino",
+    "sports": "Urheilu"
   },
   "header": {
     "balance": "Saldo",
@@ -44,7 +46,11 @@
     "profile": "Kirjaudu",
     "profileBody": "Kirjaudu sisään nähdäksesi saldon, talletuksen ja tilin.",
     "profileLoggedInTitle": "Tilisi",
-    "profileLoggedInBody": "Olet kirjautunut mock-pelaajatilillä."
+    "profileLoggedInBody": "Olet kirjautunut mock-pelaajatilillä.",
+    "live": "Live-kasino",
+    "liveBody": "Oikeat jakajat ja live-pöydät — mock-lobby design-system-POC:lle.",
+    "sports": "Urheilu",
+    "sportsBody": "Vedonlyöntipaikkamerkki — markkinat ja kuponki tulevat myöhemmin."
   },
   "docs": {
     "title": "Design system",
@@ -80,6 +86,100 @@
     "components": {
       "intro": "Perusprimitiivit semanttisiin tokeneihin. Vaihda brändiä/teemaa debug-valikosta.",
       "button": "Variantit mapittavat hover- ja pressed-tilat token-askeliin."
+    }
+  },
+  "game": {
+    "tile": {
+      "demo": "Demo",
+      "playReal": "Pelaa rahalla",
+      "loginToPlay": "Kirjaudu pelataksesi"
+    },
+    "launch": {
+      "back": "Takaisin",
+      "unknown": "Tuntematon peli",
+      "modeDemo": "Demo",
+      "modeReal": "Oikea raha",
+      "iframeLabel": "Pelikehys: {{game}}",
+      "iframeTitle": "Peli-iframe-paikkamerkki",
+      "iframeBody": "{{game}} · {{mode}}. Korvaa tämä providerin iframe:lla, kun launch on kytketty."
+    }
+  },
+  "home": {
+    "seeAll": "Näytä kaikki",
+    "carousels": {
+      "popular": "Suositut",
+      "popularBody": "Nyt pelatuimmat.",
+      "slots": "Kolikkopelit",
+      "slotsBody": "Kelat, ominaisuudet ja nopeat pyöräytykset.",
+      "live": "Live-kasino",
+      "liveBody": "Oikeat jakajat, reaaliaikaiset pöydät.",
+      "jackpots": "Jackpotit",
+      "jackpotsBody": "Progressiiviset ja päivittäiset potit.",
+      "new": "Uudet pelit",
+      "newBody": "Tuoreimmat julkaisut.",
+      "table": "Pöytäpelit",
+      "tableBody": "Ruletti, blackjack ja klassikot."
+    }
+  },
+  "live": {
+    "carousels": {
+      "roulette": "Ruletti",
+      "rouletteBody": "Lightning-, speed- ja immersive-pyörät.",
+      "blackjack": "Blackjack",
+      "blackjackBody": "VIP-paikat ja infinite-pöydät.",
+      "gameShows": "Pelishow’t",
+      "gameShowsBody": "Studioviihdettä isoilla kertoimilla.",
+      "baccarat": "Baccarat",
+      "baccaratBody": "Klassiset ja speed-baccarat-lobbyt."
+    }
+  },
+  "sports": {
+    "odds": {
+      "home": "1",
+      "draw": "X",
+      "away": "2"
+    },
+    "sections": {
+      "featured": "Nostot",
+      "featuredBody": "Huippuottelut ja isot tapahtumat.",
+      "football": "Jalkapallo",
+      "footballBody": "Kotimaiset sarjat ja derbyt.",
+      "tennis": "Tennis",
+      "tennisBody": "ATP- ja WTA-huippuottelut.",
+      "iceHockey": "Jääkiekko",
+      "iceHockeyBody": "NHL ja pohjoismaiset liigat."
+    }
+  },
+  "footer": {
+    "groups": {
+      "explore": "Tutustu",
+      "help": "Tuki",
+      "legal": "Ehdot"
+    },
+    "links": {
+      "casino": "Kasino",
+      "live": "Live-kasino",
+      "sports": "Urheilu",
+      "promotions": "Kampanjat",
+      "about": "Tietoa meistä",
+      "payments": "Maksutavat",
+      "faq": "UKK",
+      "contact": "Yhteystiedot",
+      "responsible": "Vastuullinen pelaaminen",
+      "selfExclusion": "Pelirajoitus",
+      "terms": "Käyttöehdot",
+      "privacy": "Tietosuoja",
+      "cookies": "Evästekäytäntö",
+      "complaints": "Valitukset"
+    },
+    "paymentsTitle": "Maksutavat",
+    "ageRestriction": "Pelaajien on oltava vähintään 18-vuotiaita",
+    "playResponsibly": "Pelaa vastuullisesti",
+    "copyright": "© {{year}} {{brand}}. Kaikki oikeudet pidätetään.",
+    "legal": {
+      "operator": "{{brand}}-sivustoa operoi Blixx Gaming Ltd. Tämä on design-system-demo — ei oikea kasino.",
+      "licence": "Lisensoitu rahapelaaminen (kun palvelu on live) noudattaa paikallisen viranomaisen sääntöjä. Tarkista aina paikalliset määräykset ennen pelaamista.",
+      "responsible": "Rahapelaaminen voi aiheuttaa riippuvuutta. Aseta rajat, pidä taukoja ja hae apua, jos pelaaminen ei enää tunnu hyvältä."
     }
   }
 }

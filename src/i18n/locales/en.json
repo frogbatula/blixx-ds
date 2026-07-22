@@ -3,7 +3,9 @@
     "welcome": "Welcome",
     "casino": "Games",
     "promotions": "Promotions",
-    "profile": "Profile"
+    "profile": "Profile",
+    "live": "Live Casino",
+    "sports": "Sports"
   },
   "header": {
     "balance": "Balance",
@@ -44,7 +46,11 @@
     "profile": "Log in",
     "profileBody": "Sign in to see balance, deposit, and account controls.",
     "profileLoggedInTitle": "Your account",
-    "profileLoggedInBody": "You are signed in with the mock player account."
+    "profileLoggedInBody": "You are signed in with the mock player account.",
+    "live": "Live Casino",
+    "liveBody": "Real dealers and live tables — mock lobby for the design-system POC.",
+    "sports": "Sports",
+    "sportsBody": "Sportsbook placeholder — markets and betslip coming later."
   },
   "docs": {
     "title": "Design system",
@@ -80,6 +86,100 @@
     "components": {
       "intro": "Core primitives wired to semantic tokens. Switch brand/theme via the debug menu to preview.",
       "button": "Variants map hover and pressed states to dedicated token steps."
+    }
+  },
+  "game": {
+    "tile": {
+      "demo": "Demo",
+      "playReal": "Play for real",
+      "loginToPlay": "Log in to play"
+    },
+    "launch": {
+      "back": "Back",
+      "unknown": "Unknown game",
+      "modeDemo": "Demo",
+      "modeReal": "Real money",
+      "iframeLabel": "Game frame for {{game}}",
+      "iframeTitle": "Game iframe placeholder",
+      "iframeBody": "{{game}} · {{mode}}. Swap this surface for the real provider iframe when launch is wired."
+    }
+  },
+  "home": {
+    "seeAll": "See all",
+    "carousels": {
+      "popular": "Popular",
+      "popularBody": "Top picks playing right now.",
+      "slots": "Slots",
+      "slotsBody": "Reels, features, and instant spins.",
+      "live": "Live casino",
+      "liveBody": "Real dealers, real-time tables.",
+      "jackpots": "Jackpots",
+      "jackpotsBody": "Progressive and daily drops.",
+      "new": "New games",
+      "newBody": "Fresh releases this week.",
+      "table": "Table games",
+      "tableBody": "Roulette, blackjack, and classics."
+    }
+  },
+  "live": {
+    "carousels": {
+      "roulette": "Roulette",
+      "rouletteBody": "Lightning, speed, and immersive wheels.",
+      "blackjack": "Blackjack",
+      "blackjackBody": "VIP seats and infinite tables.",
+      "gameShows": "Game shows",
+      "gameShowsBody": "Studio entertainment with big multipliers.",
+      "baccarat": "Baccarat",
+      "baccaratBody": "Classic and speed baccarat lobbies."
+    }
+  },
+  "sports": {
+    "odds": {
+      "home": "1",
+      "draw": "X",
+      "away": "2"
+    },
+    "sections": {
+      "featured": "Featured",
+      "featuredBody": "Top matches and big events.",
+      "football": "Football",
+      "footballBody": "Domestic leagues and derbies.",
+      "tennis": "Tennis",
+      "tennisBody": "ATP and WTA highlight matches.",
+      "iceHockey": "Ice hockey",
+      "iceHockeyBody": "NHL and Nordic leagues."
+    }
+  },
+  "footer": {
+    "groups": {
+      "explore": "Explore",
+      "help": "Help & support",
+      "legal": "Legal"
+    },
+    "links": {
+      "casino": "Casino",
+      "live": "Live Casino",
+      "sports": "Sports",
+      "promotions": "Promotions",
+      "about": "About us",
+      "payments": "Payments",
+      "faq": "FAQ",
+      "contact": "Contact",
+      "responsible": "Responsible gaming",
+      "selfExclusion": "Self-exclusion",
+      "terms": "Terms & conditions",
+      "privacy": "Privacy policy",
+      "cookies": "Cookie policy",
+      "complaints": "Complaints"
+    },
+    "paymentsTitle": "Payment methods",
+    "ageRestriction": "Players must be 18 or older",
+    "playResponsibly": "Play responsibly",
+    "copyright": "© {{year}} {{brand}}. All rights reserved.",
+    "legal": {
+      "operator": "{{brand}} is operated by Blixx Gaming Ltd. This site is a design-system demonstration — not a live casino.",
+      "licence": "Licensed gambling services (when live) are subject to the applicable regulator in your jurisdiction. Always check local rules before you play.",
+      "responsible": "Gambling can be addictive. Set limits, take breaks, and seek help if play stops being fun."
     }
   }
 }

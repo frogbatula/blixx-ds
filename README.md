@@ -163,28 +163,52 @@ Create a second Pages project (e.g. `blixx-ds-storybook`) with:
 - **Build command:** `npm run build-storybook`
 - **Output directory:** `storybook-static`
 
-## Mission Control (CMS POC)
+## HubHQ (CMS POC)
 
 In-app content CMS for the Content team — multi-tenant inheritance without a database for this POC.
 
 - **URL:** http://localhost:5173/cms
 - **Passcode:** `blixx`
-- **Also:** Debug menu gear → Mission Control
+- **Also:** Debug menu gear → HubHQ
 
 | Area | What it does |
 | --- | --- |
 | Copy | Edit locale keys with tenant → brand → country → language inheritance |
 | Design tokens | Override semantic tokens per brand / theme / light-dark |
+| Assets | Upload banners, game tiles, and per-brand icon overrides (R2 / local uploads) |
 | Publish | Download flat locale JSON (and token CSS) for the site |
 
-Source of truth for edits: [`cms/data/happymoney.json`](cms/data/happymoney.json) (working seed). Drafts save to `localStorage`.
+Source of truth for edits: [`cms/data/blixx-gaming.json`](cms/data/blixx-gaming.json) (working seed). Drafts save to `localStorage`. Binary files are **not** stored in Git — only URLs + metadata on the tenant document.
 
-**Factory defaults (safety net):** [`src/cms/factory/`](src/cms/factory/) is an immutable backup of locales + tenant JSON. Publish never writes there. The live app always merges factory under `src/i18n/locales`, so missing keys still resolve. In Mission Control, **Restore factory defaults** clears the draft, reloads the factory tenant, resets runtime copy, and (with local `npm run dev`) copies factory files back onto disk.
+### Assets & icons
+
+- **Defaults:** UI chrome icons come from **`lucide-react`** (React components → inline SVG). See [`src/icons/iconRegistry.ts`](src/icons/iconRegistry.ts).
+- **Overrides:** HubHQ → **Assets** → Brand icons. Upload per **brand + slot**. [`BrandIcon`](src/components/ui/brand-icon.tsx) renders the R2/`/cms/uploads` image when present; otherwise the Lucide fallback.
+- **Limits** ([`src/cms/lib/assetLimits.ts`](src/cms/lib/assetLimits.ts)):
+
+  | Kind | Types | Max size |
+  | --- | --- | --- |
+  | Game tile | JPEG / PNG / WebP | 2 MB |
+  | Banner | JPEG / PNG / WebP | 4 MB |
+  | Icon | JPEG / PNG / WebP / SVG | 256 KB |
+
+- **Local (`npm run dev`):** `POST /api/cms/upload` writes to `public/cms/uploads/` (gitignored) via the Vite CMS plugin. Secret header `x-cms-upload-secret` (default `blixx`).
+- **Production (Cloudflare Pages + R2):**
+
+  1. `npx wrangler r2 bucket create blixx-ds-assets`
+  2. Enable public access on the bucket (or a custom domain) and set `R2_PUBLIC_BASE_URL`
+  3. Set Pages secret `CMS_UPLOAD_SECRET`
+  4. [`wrangler.toml`](wrangler.toml) already binds `ASSETS` → `blixx-ds-assets`
+  5. Upload handler: [`functions/api/cms/upload.ts`](functions/api/cms/upload.ts)
+
+Copy [`.env.example`](.env.example) for local secret overrides.
+
+**Factory defaults (safety net):** [`src/cms/factory/`](src/cms/factory/) is an immutable backup of locales + tenant JSON. Publish never writes there. The live app always merges factory under `src/i18n/locales`, so missing keys still resolve. In HubHQ, **Restore factory defaults** clears the draft, reloads the factory tenant, resets runtime copy, and (with local `npm run dev`) copies factory files back onto disk.
 
 **Publish flow (POC):**
 
-1. Edit copy/tokens in Mission Control  
-2. **Publish now** — saves draft, applies strings to the running app, and (with local `npm run dev`) merges into `src/i18n/locales/*.json` + updates working seed JSON (not factory)  
+1. Edit copy / tokens / assets in HubHQ  
+2. **Publish now** — saves draft, applies strings to the running app, and (with local `npm run dev`) merges into `src/i18n/locales/*.json` + updates working seed JSON including `assets[]` (not factory)  
 3. **Export** (optional) — download JSON for git/CI when you’re on Cloudflare Pages or another host without the local write API  
 
 Production later: same inheritance model, but step 2 writes to a database and CI exports flat files.
@@ -193,13 +217,16 @@ Production later: same inheritance model, but step 2 writes to a database and CI
 
 ```
 cms/data/           # working tenant seed (publishable)
+functions/          # Cloudflare Pages Functions (e.g. /api/cms/upload → R2)
 src/
   app/              # layout, providers, locale sync
   brands/           # per-brand theme CSS (default|alt × dark|light)
   cms/
     factory/        # immutable backup defaults (never overwritten by publish)
     seed/           # last published working copy
-  components/ui/    # Button, Card, Input, Badge, Separator
+    lib/assetLimits.ts  # shared upload MIME/size rules
+  icons/            # Lucide icon slot registry
+  components/ui/    # Button, Card, BrandIcon, GameTile, …
   components/navigation/
   i18n/
   mock/

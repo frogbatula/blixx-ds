@@ -1,6 +1,6 @@
 {
-  "tenantId": "happymoney",
-  "name": "HappyMoney",
+  "tenantId": "blixx-gaming",
+  "name": "Blixx Gaming",
   "brands": [
     {
       "id": "lonkero",
@@ -31,6 +31,8 @@
       "messages": {
         "nav.welcome": "Welcome",
         "nav.casino": "Games",
+        "nav.live": "Live Casino",
+        "nav.sports": "Sports",
         "nav.promotions": "Promotions",
         "nav.profile": "Profile",
         "header.balance": "Balance",
@@ -99,6 +101,8 @@
       "messages": {
         "nav.welcome": "Tervetuloa",
         "nav.casino": "Kasino",
+        "nav.live": "Live-kasino",
+        "nav.sports": "Urheilu",
         "nav.promotions": "Kampanjat",
         "nav.profile": "Profiili",
         "header.balance": "Saldo",
@@ -167,6 +171,8 @@
       "messages": {
         "nav.welcome": "Välkommen",
         "nav.casino": "Kasino",
+        "nav.live": "Livecasino",
+        "nav.sports": "Sport",
         "nav.promotions": "Kampanjer",
         "nav.profile": "Profil",
         "header.balance": "Saldo",
@@ -292,5 +298,6 @@
         "card": "#101828"
       }
     }
-  ]
+  ],
+  "assets": []
 }

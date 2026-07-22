@@ -3,7 +3,9 @@
     "welcome": "Välkommen",
     "casino": "Kasino",
     "promotions": "Kampanjer",
-    "profile": "Profil"
+    "profile": "Profil",
+    "live": "Livecasino",
+    "sports": "Sport"
   },
   "header": {
     "balance": "Saldo",
@@ -44,7 +46,11 @@
     "profile": "Logga in",
     "profileBody": "Logga in för att se saldo, insättning och konto.",
     "profileLoggedInTitle": "Ditt konto",
-    "profileLoggedInBody": "Du är inloggad med mock-spelarkontot."
+    "profileLoggedInBody": "Du är inloggad med mock-spelarkontot.",
+    "live": "Livecasino",
+    "liveBody": "Riktiga dealers och livebord — mocklobby för designsystem-POC:n.",
+    "sports": "Sport",
+    "sportsBody": "Sportbok-platshållare — marknader och kupong kommer senare."
   },
   "docs": {
     "title": "Designsystem",
@@ -80,6 +86,100 @@
     "components": {
       "intro": "Kärnprimitiver kopplade till semantiska tokens. Byt varumärke/tema via debug-menyn.",
       "button": "Varianter mappar hover och pressed till dedikerade tokensteg."
+    }
+  },
+  "game": {
+    "tile": {
+      "demo": "Demo",
+      "playReal": "Spela på riktigt",
+      "loginToPlay": "Logga in för att spela"
+    },
+    "launch": {
+      "back": "Tillbaka",
+      "unknown": "Okänt spel",
+      "modeDemo": "Demo",
+      "modeReal": "Riktiga pengar",
+      "iframeLabel": "Spelram för {{game}}",
+      "iframeTitle": "Spel-iframe-platshållare",
+      "iframeBody": "{{game}} · {{mode}}. Byt ut den här ytan mot provider-iframe när launch är inkopplad."
+    }
+  },
+  "home": {
+    "seeAll": "Visa alla",
+    "carousels": {
+      "popular": "Populära",
+      "popularBody": "Mest spelade just nu.",
+      "slots": "Slots",
+      "slotsBody": "Hjul, features och snabba snurr.",
+      "live": "Livecasino",
+      "liveBody": "Riktiga dealers, bord i realtid.",
+      "jackpots": "Jackpottar",
+      "jackpotsBody": "Progressiva och dagliga droppar.",
+      "new": "Nya spel",
+      "newBody": "Färska releaser den här veckan.",
+      "table": "Bordsspel",
+      "tableBody": "Roulette, blackjack och klassiker."
+    }
+  },
+  "live": {
+    "carousels": {
+      "roulette": "Roulette",
+      "rouletteBody": "Lightning-, speed- och immersiva hjul.",
+      "blackjack": "Blackjack",
+      "blackjackBody": "VIP-platser och infinite-bord.",
+      "gameShows": "Gameshows",
+      "gameShowsBody": "Studiounderhållning med stora multiplikatorer.",
+      "baccarat": "Baccarat",
+      "baccaratBody": "Klassiska och speed-baccaratlobbys."
+    }
+  },
+  "sports": {
+    "odds": {
+      "home": "1",
+      "draw": "X",
+      "away": "2"
+    },
+    "sections": {
+      "featured": "Utvalda",
+      "featuredBody": "Toppmatcher och stora event.",
+      "football": "Fotboll",
+      "footballBody": "Inhemska ligor och derbyn.",
+      "tennis": "Tennis",
+      "tennisBody": "ATP- och WTA-höjdpunkter.",
+      "iceHockey": "Ishockey",
+      "iceHockeyBody": "NHL och nordiska ligor."
+    }
+  },
+  "footer": {
+    "groups": {
+      "explore": "Utforska",
+      "help": "Hjälp & support",
+      "legal": "Juridiskt"
+    },
+    "links": {
+      "casino": "Kasino",
+      "live": "Livecasino",
+      "sports": "Sport",
+      "promotions": "Kampanjer",
+      "about": "Om oss",
+      "payments": "Betalningar",
+      "faq": "FAQ",
+      "contact": "Kontakt",
+      "responsible": "Ansvarsfullt spelande",
+      "selfExclusion": "Självuteslutning",
+      "terms": "Villkor",
+      "privacy": "Integritetspolicy",
+      "cookies": "Cookiepolicy",
+      "complaints": "Klagomål"
+    },
+    "paymentsTitle": "Betalningsmetoder",
+    "ageRestriction": "Spelare måste vara 18 år eller äldre",
+    "playResponsibly": "Spela ansvarsfullt",
+    "copyright": "© {{year}} {{brand}}. Alla rättigheter förbehållna.",
+    "legal": {
+      "operator": "{{brand}} drivs av Blixx Gaming Ltd. Detta är en designsystem-demo — inte ett live-kasino.",
+      "licence": "Licensierade speltjänster (när de är live) lyder under tillämplig tillsynsmyndighet. Kontrollera alltid lokala regler innan du spelar.",
+      "responsible": "Spel kan vara beroendeframkallande. Sätt gränser, ta pauser och sök hjälp om spelet slutar vara roligt."
     }
   }
 }

@@ -77,7 +77,7 @@ export function DebugMenu() {
             <Button asChild variant="outline" className="w-full justify-start">
               <Link to="/cms" onClick={() => setOpen(false)}>
                 <LayoutDashboard className="size-4" />
-                Mission Control
+                HubHQ
               </Link>
             </Button>
           </CardContent>

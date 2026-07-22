@@ -1,6 +1,6 @@
 import type { TenantDocument } from '@/cms/lib/types'
-import factoryTenant from '@/cms/factory/happymoney.json'
-import seed from '@/cms/seed/happymoney.json'
+import factoryTenant from '@/cms/factory/blixx-gaming.json'
+import seed from '@/cms/seed/blixx-gaming.json'
 
 export const CMS_PASSCODE = 'blixx'
 export const CMS_AUTH_KEY = 'blixx-cms-auth'
@@ -8,12 +8,14 @@ export const CMS_DRAFT_PREFIX = 'blixx-cms-draft:'
 
 /** Immutable factory backup — never overwritten by publish. */
 export function getFactoryTenant(): TenantDocument {
-  return structuredClone(factoryTenant as unknown as TenantDocument)
+  const doc = structuredClone(factoryTenant as unknown as TenantDocument)
+  return { ...doc, assets: Array.isArray(doc.assets) ? doc.assets : [] }
 }
 
 /** Last published / working seed (may diverge from factory). */
 export function getSeedTenant(): TenantDocument {
-  return structuredClone(seed as unknown as TenantDocument)
+  const doc = structuredClone(seed as unknown as TenantDocument)
+  return { ...doc, assets: Array.isArray(doc.assets) ? doc.assets : [] }
 }
 
 export function loadDraft(tenantId: string): TenantDocument | null {
@@ -28,18 +30,29 @@ export function loadDraft(tenantId: string): TenantDocument | null {
 
 export function saveDraft(doc: TenantDocument): void {
   localStorage.setItem(CMS_DRAFT_PREFIX + doc.tenantId, JSON.stringify(doc))
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('blixx-cms-tenant-updated'))
+  }
 }
 
 export function clearDraft(tenantId: string): void {
   localStorage.removeItem(CMS_DRAFT_PREFIX + tenantId)
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('blixx-cms-tenant-updated'))
+  }
 }
 
 export function loadTenantDocument(tenantId: string): TenantDocument {
   const draft = loadDraft(tenantId)
-  if (draft) return draft
-  const seedDoc = getSeedTenant()
-  if (seedDoc.tenantId === tenantId) return seedDoc
-  return getFactoryTenant()
+  const raw = draft
+    ? draft
+    : getSeedTenant().tenantId === tenantId
+      ? getSeedTenant()
+      : getFactoryTenant()
+  return {
+    ...raw,
+    assets: Array.isArray(raw.assets) ? raw.assets : [],
+  }
 }
 
 /** Clear draft and return factory baseline in memory. */

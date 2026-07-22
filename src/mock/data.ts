@@ -1,23 +1,26 @@
-import { Home, Dices, Gift, User } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
-
 export type NavItem = {
   id: string
   path: string
   labelKey: string
-  icon: LucideIcon
+  iconSlot:
+    | 'nav.welcome'
+    | 'nav.casino'
+    | 'nav.live'
+    | 'nav.sports'
+    | 'nav.promotions'
 }
 
 export const navItems: NavItem[] = [
-  { id: 'welcome', path: '/', labelKey: 'nav.welcome', icon: Home },
-  { id: 'casino', path: '/casino', labelKey: 'nav.casino', icon: Dices },
+  { id: 'welcome', path: '/', labelKey: 'nav.welcome', iconSlot: 'nav.welcome' },
+  { id: 'casino', path: '/casino', labelKey: 'nav.casino', iconSlot: 'nav.casino' },
+  { id: 'live', path: '/live', labelKey: 'nav.live', iconSlot: 'nav.live' },
+  { id: 'sports', path: '/sports', labelKey: 'nav.sports', iconSlot: 'nav.sports' },
   {
     id: 'promotions',
     path: '/promotions',
     labelKey: 'nav.promotions',
-    icon: Gift,
+    iconSlot: 'nav.promotions',
   },
-  { id: 'profile', path: '/profile', labelKey: 'nav.profile', icon: User },
 ]
 
 export const countryLabels: Record<string, string> = {
