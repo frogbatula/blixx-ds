@@ -295,42 +295,30 @@
   ],
   "assets": [
     {
-      "id": "4f0e40d2-6317-44d9-8b6b-102577d24b58",
+      "id": "90b856f5-4c50-401a-b3d2-ba9968cbdbd4",
       "kind": "game-tile",
-      "url": "/cms/uploads/blixx-gaming/game-tile/shared/asset/00cda6a5-f25a-4c20-87f7-44cce20ce31d.png",
-      "key": "blixx-gaming/game-tile/shared/asset/00cda6a5-f25a-4c20-87f7-44cce20ce31d.png",
-      "alt": "06ac9e14e76c4319b584da7e98dacc76afe9d3f3.png",
-      "label": "06ac9e14e76c4319b584da7e98dacc76afe9d3f3.png",
-      "updatedAt": "2026-07-21T21:37:04.830Z"
-    },
-    {
-      "id": "0c5e07b7-9119-4490-8846-1be0e1609701",
-      "kind": "game-tile",
-      "url": "/cms/uploads/blixx-gaming/game-tile/shared/asset/b5d3e2ad-b72f-4bbf-b7f4-4eff9fb0d7a7.png",
-      "key": "blixx-gaming/game-tile/shared/asset/b5d3e2ad-b72f-4bbf-b7f4-4eff9fb0d7a7.png",
+      "url": "/cms/uploads/blixx-gaming/game-tile/shared/asset/515583f9-b16f-4971-9fab-f42101767895.png",
+      "key": "blixx-gaming/game-tile/shared/asset/515583f9-b16f-4971-9fab-f42101767895.png",
       "alt": "AppIcon.png",
       "label": "AppIcon.png",
-      "updatedAt": "2026-07-21T21:00:15.353Z"
-    },
-    {
-      "id": "97a65dfa-1fea-41e6-8209-106164f30e6b",
-      "kind": "game-tile",
-      "url": "/cms/uploads/blixx-gaming/game-tile/shared/asset/6f5f35a5-b205-4bb3-97af-dd9f8194ff55.png",
-      "key": "blixx-gaming/game-tile/shared/asset/6f5f35a5-b205-4bb3-97af-dd9f8194ff55.png",
-      "alt": "AppIcon.png",
-      "label": "AppIcon.png",
-      "updatedAt": "2026-07-21T20:58:39.842Z"
-    },
-    {
-      "id": "db0274d8-40d8-42e4-942c-16b2040e6a83",
-      "kind": "banner",
-      "url": "/cms/uploads/blixx-gaming/banner/shared/asset/065f8529-68e3-4884-b1bb-925bc2659ef6.png",
-      "key": "blixx-gaming/banner/shared/asset/065f8529-68e3-4884-b1bb-925bc2659ef6.png",
-      "alt": "AppIcon.png",
-      "label": "AppIcon.png",
-      "updatedAt": "2026-07-21T20:57:25.737Z"
+      "updatedAt": "2026-07-22T14:45:59.908Z"
     }
   ],
-  "games": [],
-  "promos": []
+  "games": [
+    {
+      "id": "3981019a-8b35-4d87-885f-105eab601472",
+      "slug": "tripplanner",
+      "name": "TripPlanner",
+      "categories": [
+        "popular",
+        "slots"
+      ],
+      "tileAssetId": "90b856f5-4c50-401a-b3d2-ba9968cbdbd4",
+      "tileUrl": "/cms/uploads/blixx-gaming/game-tile/shared/asset/515583f9-b16f-4971-9fab-f42101767895.png",
+      "active": true,
+      "order": 0,
+      "createdAt": "2026-07-22T14:43:59.985Z",
+      "updatedAt": "2026-07-22T14:46:13.667Z"
+    }
+  ]
 }

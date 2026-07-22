@@ -194,17 +194,17 @@ export function AssetPicker({
       )}
 
       {selectedAsset && (
-        <div className="flex items-center gap-3 rounded-xl border border-border-muted bg-background-subtle p-2">
+        <div className="flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 p-2">
           <img
             src={selectedAsset.url}
-            alt={selectedAsset.alt}
+            alt="Selected image"
             className="size-12 rounded-lg object-cover"
           />
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium">
-              {selectedAsset.label || selectedAsset.alt}
+            <p className="text-sm font-medium text-primary">Image selected</p>
+            <p className="text-xs text-foreground/55">
+              This image will be used for the {kind === 'game-tile' ? 'game' : 'promo'}
             </p>
-            <p className="text-xs text-foreground/55">Selected</p>
           </div>
         </div>
       )}
