@@ -295,6 +295,15 @@
   ],
   "assets": [
     {
+      "id": "c5bd7058-ff7a-4cba-91d1-79f4ecaecc9b",
+      "kind": "game-tile",
+      "url": "/cms/uploads/blixx-gaming/game-tile/shared/asset/ff1aa79e-8c51-4c71-b0d1-9696b1ea5df0.png",
+      "key": "blixx-gaming/game-tile/shared/asset/ff1aa79e-8c51-4c71-b0d1-9696b1ea5df0.png",
+      "alt": "icon-watchOS-Default-1088x1088@1x 1.png",
+      "label": "icon-watchOS-Default-1088x1088@1x 1.png",
+      "updatedAt": "2026-07-23T12:07:20.314Z"
+    },
+    {
       "id": "87add9a2-9b4f-4201-9626-03acd3f4bfc7",
       "kind": "banner",
       "url": "/cms/uploads/blixx-gaming/banner/shared/asset/a3340873-ad25-48d7-bf95-0143a80f4b07.png",
@@ -324,19 +333,17 @@
   ],
   "games": [
     {
-      "id": "3981019a-8b35-4d87-885f-105eab601472",
-      "slug": "tripplanner",
-      "name": "TripPlanner",
-      "categories": [
-        "popular",
-        "slots"
-      ],
+      "id": "31e3f495-54c5-425e-a4c3-e89c65b4ee33",
+      "slug": "kittytrip",
+      "name": "KittyTrip",
+      "provider": "Fbat",
+      "categories": [],
       "tileAssetId": "90b856f5-4c50-401a-b3d2-ba9968cbdbd4",
       "tileUrl": "/cms/uploads/blixx-gaming/game-tile/shared/asset/515583f9-b16f-4971-9fab-f42101767895.png",
       "active": true,
       "order": 0,
-      "createdAt": "2026-07-22T14:43:59.985Z",
-      "updatedAt": "2026-07-22T14:49:28.890Z"
+      "createdAt": "2026-07-23T14:14:59.461Z",
+      "updatedAt": "2026-07-23T14:14:59.461Z"
     }
   ],
   "promos": [
