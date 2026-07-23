@@ -31,10 +31,6 @@ export function CmsPublishPage() {
   const [previewName, setPreviewName] = useState<string | null>(null)
   const [status, setStatus] = useState<string | null>(null)
   const [publishing, setPublishing] = useState(false)
-  const [syncing, setSyncing] = useState(false)
-  const [syncStatus, setSyncStatus] = useState<string | null>(null)
-  const [syncingText, setSyncingText] = useState(false)
-  const [textSyncStatus, setTextSyncStatus] = useState<string | null>(null)
 
   const files = useMemo(
     () => publishLocales(doc, { brand: context.brand }),
@@ -57,70 +53,55 @@ export function CmsPublishPage() {
     setPublishing(true)
     setStatus(null)
     saveDraftNow()
-    const result = await publishToDisk(doc)
+
+    const results: string[] = []
+    const errors: string[] = []
+
+    // 1. Apply to running site (i18next)
+    const diskResult = await publishToDisk(doc)
+    if (diskResult.ok) {
+      results.push('Applied to site')
+    }
+
+    // 2. Sync to Supabase if configured
+    if (isSupabaseConfigured) {
+      // Sync games, promos, assets
+      const games = doc.games ?? []
+      const promos = doc.promos ?? []
+      const assets = doc.assets ?? []
+
+      const dataResult = await syncAllToSupabase(games, promos, assets, doc.tenantId)
+      if (dataResult.ok) {
+        results.push(`${games.length} games, ${promos.length} promos, ${assets.length} assets`)
+      } else {
+        errors.push(...dataResult.errors)
+      }
+
+      // Sync text content
+      const textResult = await syncTextContent(
+        doc.messageLayers,
+        doc.tokenLayers,
+        doc.tenantId,
+      )
+      if (textResult.ok) {
+        const msgCount = doc.messageLayers.reduce(
+          (sum, layer) => sum + Object.keys(layer.messages).length,
+          0,
+        )
+        results.push(`${msgCount} text strings`)
+      } else if (textResult.error) {
+        errors.push(textResult.error)
+      }
+    }
+
     setPublishing(false)
-    if (!result.ok) {
-      setStatus(`Publish failed: ${result.error ?? 'unknown error'}`)
-      return
-    }
-    if (result.mode === 'disk') {
-      setStatus(
-        'Published: draft saved, site copy updated in this browser, and flat files written to src/i18n/locales/ (local dev).',
-      )
+
+    if (errors.length > 0) {
+      setStatus(`Published with errors: ${errors.join('; ')}`)
+    } else if (isSupabaseConfigured) {
+      setStatus(`Published: ${results.join(', ')}. All visitors will see this content.`)
     } else {
-      setStatus(
-        'Published in-browser: draft saved and site copy updated for this session. File overwrite needs local `npm run dev` (or a future database + CI export). Use Export below for git.',
-      )
-    }
-  }
-
-  async function handleSyncToSupabase() {
-    setSyncing(true)
-    setSyncStatus(null)
-    saveDraftNow()
-
-    const games = doc.games ?? []
-    const promos = doc.promos ?? []
-    const assets = doc.assets ?? []
-
-    const result = await syncAllToSupabase(games, promos, assets, doc.tenantId)
-    setSyncing(false)
-
-    if (result.ok) {
-      setSyncStatus(
-        `Synced to Supabase: ${games.length} games, ${promos.length} promos, ${assets.length} assets.`,
-      )
-    } else {
-      setSyncStatus(`Sync errors: ${result.errors.join('; ')}`)
-    }
-  }
-
-  async function handleSyncTextContent() {
-    setSyncingText(true)
-    setTextSyncStatus(null)
-    saveDraftNow()
-
-    const result = await syncTextContent(
-      doc.messageLayers,
-      doc.tokenLayers,
-      doc.tenantId,
-    )
-    setSyncingText(false)
-
-    if (result.ok) {
-      const msgCount = doc.messageLayers.reduce(
-        (sum, layer) => sum + Object.keys(layer.messages).length,
-        0,
-      )
-      const tokenCount = doc.tokenLayers.reduce(
-        (sum, layer) => sum + Object.keys(layer.tokens).length,
-        0,
-      )
-      setTextSyncStatus(
-        `Synced text content: ${doc.messageLayers.length} message layers (${msgCount} strings), ${doc.tokenLayers.length} token layers (${tokenCount} tokens).`,
-      )
-    } else {
-      setTextSyncStatus(`Sync failed: ${result.error}`)
+      setStatus('Published locally. Configure Supabase for shared persistence.')
     }
   }
 
@@ -129,51 +110,10 @@ export function CmsPublishPage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Publish</h1>
         <p className="mt-1 max-w-2xl text-sm text-foreground/70">
-          Intended production flow: save content → store (DB later) → export
-          flat locale files that override{' '}
-          <code className="text-xs">src/i18n/locales/</code>. This POC has no
-          database yet; Publish still saves a draft, applies copy to the live
-          app, and on local Vite writes those flat files to disk.
+          Push your changes live. All content will be saved to the database and
+          visible to all visitors.
         </p>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">1. Publish</CardTitle>
-          <CardDescription>
-            Save draft → apply to running site → write flat locale files when
-            the local publish API is available
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-3">
-          <Button
-            type="button"
-            size="lg"
-            disabled={publishing}
-            onClick={() => void handlePublish()}
-          >
-            {publishing ? 'Publishing…' : 'Publish now'}
-          </Button>
-          {dirty ? (
-            <Badge variant="warning" className="w-fit">
-              Unsaved edits will be saved as draft first
-            </Badge>
-          ) : null}
-          {status ? (
-            <p className="rounded-xl bg-background-subtle px-3 py-2 text-sm text-foreground/80">
-              {status}
-            </p>
-          ) : null}
-          <p className="text-xs text-foreground/55">
-            After publish, open the{' '}
-            <Link to="/" className="text-primary underline">
-              casino site
-            </Link>{' '}
-            to verify strings. Restart or refresh if a bundled build still
-            shows old committed files.
-          </p>
-        </CardContent>
-      </Card>
 
       <Card>
         <CardHeader>
@@ -183,75 +123,60 @@ export function CmsPublishPage() {
             ) : (
               <CloudOff className="size-4 text-foreground/40" />
             )}
-            2. Sync to Supabase
+            Publish to live site
           </CardTitle>
           <CardDescription>
             {isSupabaseConfigured
-              ? 'Push games, promos, and assets to the database so all visitors see the same content.'
-              : 'Supabase not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env'}
+              ? 'Save all content to the database. All visitors will see this content.'
+              : 'Supabase not configured — changes will only apply locally. Add credentials to .env for shared persistence.'}
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col gap-3">
-          <div className="flex flex-wrap items-center gap-3">
-            <Button
-              type="button"
-              size="lg"
-              disabled={!isSupabaseConfigured || syncing}
-              onClick={() => void handleSyncToSupabase()}
-            >
-              {syncing ? 'Syncing…' : 'Sync to database'}
-            </Button>
-            <div className="flex gap-2 text-sm text-foreground/60">
-              <Badge variant="outline">{(doc.games ?? []).length} games</Badge>
-              <Badge variant="outline">{(doc.promos ?? []).length} promos</Badge>
-              <Badge variant="outline">{(doc.assets ?? []).length} assets</Badge>
-            </div>
+        <CardContent className="flex flex-col gap-4">
+          <div className="flex flex-wrap gap-2 text-sm">
+            <Badge variant="outline">{(doc.games ?? []).length} games</Badge>
+            <Badge variant="outline">{(doc.promos ?? []).length} promos</Badge>
+            <Badge variant="outline">{(doc.assets ?? []).length} assets</Badge>
+            <Badge variant="outline">{doc.messageLayers.length} message layers</Badge>
+            <Badge variant="outline">{doc.tokenLayers.length} token layers</Badge>
           </div>
-          {syncStatus && (
+
+          <Button
+            type="button"
+            size="lg"
+            disabled={publishing}
+            onClick={() => void handlePublish()}
+          >
+            {publishing ? 'Publishing…' : 'Publish now'}
+          </Button>
+
+          {dirty && (
+            <Badge variant="warning" className="w-fit">
+              Unsaved edits will be saved first
+            </Badge>
+          )}
+
+          {status && (
             <p className="rounded-xl bg-background-subtle px-3 py-2 text-sm text-foreground/80">
-              {syncStatus}
+              {status}
             </p>
           )}
 
-          <div className="border-t border-border-muted pt-4 mt-2">
-            <p className="text-sm font-medium mb-3">Text content (copy & tokens)</p>
-            <div className="flex flex-wrap items-center gap-3">
-              <Button
-                type="button"
-                variant="secondary"
-                disabled={!isSupabaseConfigured || syncingText}
-                onClick={() => void handleSyncTextContent()}
-              >
-                {syncingText ? 'Syncing…' : 'Sync text content'}
-              </Button>
-              <div className="flex gap-2 text-sm text-foreground/60">
-                <Badge variant="outline">
-                  {doc.messageLayers.length} message layers
-                </Badge>
-                <Badge variant="outline">
-                  {doc.tokenLayers.length} token layers
-                </Badge>
-              </div>
-            </div>
-            {textSyncStatus && (
-              <p className="mt-3 rounded-xl bg-background-subtle px-3 py-2 text-sm text-foreground/80">
-                {textSyncStatus}
-              </p>
+          <p className="text-xs text-foreground/55">
+            After publish, open the{' '}
+            <Link to="/" className="text-primary underline">
+              casino site
+            </Link>{' '}
+            to verify changes.
+            {!isSupabaseConfigured && (
+              <> Create a <code className="text-xs">.env</code> file for database sync.</>
             )}
-          </div>
-
-          {!isSupabaseConfigured && (
-            <p className="text-xs text-foreground/55">
-              Create a <code className="text-xs">.env</code> file with your
-              Supabase credentials. See <code className="text-xs">.env.example</code>.
-            </p>
-          )}
+          </p>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">3. Export (optional)</CardTitle>
+          <CardTitle className="text-base">Export (optional)</CardTitle>
           <CardDescription>
             Download JSON for git commits, CI, or environments without the
             local write API (e.g. Cloudflare Pages preview)
