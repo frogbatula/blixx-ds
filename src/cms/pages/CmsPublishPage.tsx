@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Cloud, CloudOff } from 'lucide-react'
 import { useCmsStore } from '@/cms/CmsProvider'
 import {
   downloadLocaleBundle,
@@ -8,6 +9,7 @@ import {
   publishTokenCss,
 } from '@/cms/lib/publish'
 import { publishToDisk } from '@/cms/lib/applyPublish'
+import { isSupabaseConfigured, syncAllToSupabase } from '@/lib/db'
 import { brands } from '@/brands/types'
 import { brandLabels } from '@/brands/types'
 import { Button } from '@/components/ui/button'
@@ -25,6 +27,8 @@ export function CmsPublishPage() {
   const [previewName, setPreviewName] = useState<string | null>(null)
   const [status, setStatus] = useState<string | null>(null)
   const [publishing, setPublishing] = useState(false)
+  const [syncing, setSyncing] = useState(false)
+  const [syncStatus, setSyncStatus] = useState<string | null>(null)
 
   const files = useMemo(
     () => publishLocales(doc, { brand: context.brand }),
@@ -61,6 +65,27 @@ export function CmsPublishPage() {
       setStatus(
         'Published in-browser: draft saved and site copy updated for this session. File overwrite needs local `npm run dev` (or a future database + CI export). Use Export below for git.',
       )
+    }
+  }
+
+  async function handleSyncToSupabase() {
+    setSyncing(true)
+    setSyncStatus(null)
+    saveDraftNow()
+
+    const games = doc.games ?? []
+    const promos = doc.promos ?? []
+    const assets = doc.assets ?? []
+
+    const result = await syncAllToSupabase(games, promos, assets, doc.tenantId)
+    setSyncing(false)
+
+    if (result.ok) {
+      setSyncStatus(
+        `Synced to Supabase: ${games.length} games, ${promos.length} promos, ${assets.length} assets.`,
+      )
+    } else {
+      setSyncStatus(`Sync errors: ${result.errors.join('; ')}`)
     }
   }
 
@@ -117,7 +142,53 @@ export function CmsPublishPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">2. Export (optional)</CardTitle>
+          <CardTitle className="flex items-center gap-2 text-base">
+            {isSupabaseConfigured ? (
+              <Cloud className="size-4 text-primary" />
+            ) : (
+              <CloudOff className="size-4 text-foreground/40" />
+            )}
+            2. Sync to Supabase
+          </CardTitle>
+          <CardDescription>
+            {isSupabaseConfigured
+              ? 'Push games, promos, and assets to the database so all visitors see the same content.'
+              : 'Supabase not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env'}
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              type="button"
+              size="lg"
+              disabled={!isSupabaseConfigured || syncing}
+              onClick={() => void handleSyncToSupabase()}
+            >
+              {syncing ? 'Syncing…' : 'Sync to database'}
+            </Button>
+            <div className="flex gap-2 text-sm text-foreground/60">
+              <Badge variant="outline">{(doc.games ?? []).length} games</Badge>
+              <Badge variant="outline">{(doc.promos ?? []).length} promos</Badge>
+              <Badge variant="outline">{(doc.assets ?? []).length} assets</Badge>
+            </div>
+          </div>
+          {syncStatus && (
+            <p className="rounded-xl bg-background-subtle px-3 py-2 text-sm text-foreground/80">
+              {syncStatus}
+            </p>
+          )}
+          {!isSupabaseConfigured && (
+            <p className="text-xs text-foreground/55">
+              Create a <code className="text-xs">.env</code> file with your
+              Supabase credentials. See <code className="text-xs">.env.example</code>.
+            </p>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">3. Export (optional)</CardTitle>
           <CardDescription>
             Download JSON for git commits, CI, or environments without the
             local write API (e.g. Cloudflare Pages preview)

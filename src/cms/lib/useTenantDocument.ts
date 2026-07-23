@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import type { TenantDocument } from '@/cms/lib/types'
 import { loadTenantDocument } from '@/cms/lib/storage'
+import {
+  isSupabaseConfigured,
+  fetchActiveGames,
+  fetchActivePromos,
+  fetchAssets,
+} from '@/lib/db'
 
 export const CMS_TENANT_UPDATED = 'blixx-cms-tenant-updated'
 export const DEFAULT_TENANT_ID = 'blixx-gaming'
@@ -18,14 +24,32 @@ function normalize(doc: TenantDocument): TenantDocument {
   }
 }
 
+const remoteCache: {
+  games: TenantDocument['games'] | null
+  promos: TenantDocument['promos'] | null
+  assets: TenantDocument['assets'] | null
+  fetched: boolean
+} = { games: null, promos: null, assets: null, fetched: false }
+
 /** Live tenant (draft or seed) for site shell + HubHQ consumers outside CmsProvider. */
 export function useTenantDocument(tenantId = DEFAULT_TENANT_ID) {
   const [doc, setDoc] = useState<TenantDocument>(() =>
     normalize(loadTenantDocument(tenantId)),
   )
+  const [remoteLoaded, setRemoteLoaded] = useState(remoteCache.fetched)
 
   const refresh = useCallback(() => {
-    setDoc(normalize(loadTenantDocument(tenantId)))
+    const local = normalize(loadTenantDocument(tenantId))
+    if (remoteCache.fetched) {
+      setDoc({
+        ...local,
+        games: remoteCache.games ?? local.games,
+        promos: remoteCache.promos ?? local.promos,
+        assets: remoteCache.assets ?? local.assets,
+      })
+    } else {
+      setDoc(local)
+    }
   }, [tenantId])
 
   useEffect(() => {
@@ -39,5 +63,51 @@ export function useTenantDocument(tenantId = DEFAULT_TENANT_ID) {
     }
   }, [refresh])
 
-  return { doc, refresh }
+  useEffect(() => {
+    if (!isSupabaseConfigured || remoteCache.fetched) return
+
+    let cancelled = false
+
+    async function loadRemote() {
+      try {
+        const [games, promos, assets] = await Promise.all([
+          fetchActiveGames(tenantId),
+          fetchActivePromos(tenantId),
+          fetchAssets(tenantId),
+        ])
+
+        if (cancelled) return
+
+        if (games.length > 0 || promos.length > 0 || assets.length > 0) {
+          remoteCache.games = games
+          remoteCache.promos = promos
+          remoteCache.assets = assets
+          remoteCache.fetched = true
+          setRemoteLoaded(true)
+        }
+      } catch (err) {
+        console.error('Failed to load remote data:', err)
+      }
+    }
+
+    void loadRemote()
+    return () => {
+      cancelled = true
+    }
+  }, [tenantId])
+
+  useEffect(() => {
+    if (remoteLoaded) {
+      refresh()
+    }
+  }, [remoteLoaded, refresh])
+
+  return { doc, refresh, isRemote: remoteCache.fetched }
+}
+
+export function invalidateRemoteCache(): void {
+  remoteCache.games = null
+  remoteCache.promos = null
+  remoteCache.assets = null
+  remoteCache.fetched = false
 }
