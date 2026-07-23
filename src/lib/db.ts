@@ -1,9 +1,20 @@
 import { supabase, isSupabaseConfigured } from './supabase'
-import type { GameItem, PromoItem, TenantAsset } from '@/cms/lib/types'
+import type {
+  GameItem,
+  PromoItem,
+  TenantAsset,
+  MessageLayer,
+  TokenLayer,
+} from '@/cms/lib/types'
 
 export { isSupabaseConfigured }
 
 const DEFAULT_TENANT = 'blixx-gaming'
+
+export type TenantConfig = {
+  messageLayers?: MessageLayer[]
+  tokenLayers?: TokenLayer[]
+}
 
 export type DbGame = {
   id: string
@@ -339,4 +350,61 @@ export async function syncAllToSupabase(
   }
 
   return { ok: errors.length === 0, errors }
+}
+
+export async function fetchTenantConfig(
+  tenantId = DEFAULT_TENANT,
+): Promise<TenantConfig | null> {
+  if (!isSupabaseConfigured) return null
+  const { data, error } = await supabase
+    .from('tenants')
+    .select('config')
+    .eq('id', tenantId)
+    .single()
+  if (error) {
+    console.error('fetchTenantConfig error:', error)
+    return null
+  }
+  return (data?.config as TenantConfig) ?? null
+}
+
+export async function updateTenantConfig(
+  config: TenantConfig,
+  tenantId = DEFAULT_TENANT,
+): Promise<boolean> {
+  if (!isSupabaseConfigured) return false
+  
+  // Merge with existing config to preserve other fields
+  const existing = await fetchTenantConfig(tenantId)
+  const merged = { ...existing, ...config }
+  
+  const { error } = await supabase
+    .from('tenants')
+    .update({ config: merged, updated_at: new Date().toISOString() })
+    .eq('id', tenantId)
+  if (error) {
+    console.error('updateTenantConfig error:', error)
+    return false
+  }
+  return true
+}
+
+export async function syncTextContent(
+  messageLayers: MessageLayer[],
+  tokenLayers: TokenLayer[],
+  tenantId = DEFAULT_TENANT,
+): Promise<{ ok: boolean; error?: string }> {
+  if (!isSupabaseConfigured) {
+    return { ok: false, error: 'Supabase not configured' }
+  }
+  
+  const success = await updateTenantConfig(
+    { messageLayers, tokenLayers },
+    tenantId,
+  )
+  
+  if (!success) {
+    return { ok: false, error: 'Failed to update tenant config' }
+  }
+  return { ok: true }
 }

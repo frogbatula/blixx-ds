@@ -9,7 +9,11 @@ import {
   publishTokenCss,
 } from '@/cms/lib/publish'
 import { publishToDisk } from '@/cms/lib/applyPublish'
-import { isSupabaseConfigured, syncAllToSupabase } from '@/lib/db'
+import {
+  isSupabaseConfigured,
+  syncAllToSupabase,
+  syncTextContent,
+} from '@/lib/db'
 import { brands } from '@/brands/types'
 import { brandLabels } from '@/brands/types'
 import { Button } from '@/components/ui/button'
@@ -29,6 +33,8 @@ export function CmsPublishPage() {
   const [publishing, setPublishing] = useState(false)
   const [syncing, setSyncing] = useState(false)
   const [syncStatus, setSyncStatus] = useState<string | null>(null)
+  const [syncingText, setSyncingText] = useState(false)
+  const [textSyncStatus, setTextSyncStatus] = useState<string | null>(null)
 
   const files = useMemo(
     () => publishLocales(doc, { brand: context.brand }),
@@ -86,6 +92,35 @@ export function CmsPublishPage() {
       )
     } else {
       setSyncStatus(`Sync errors: ${result.errors.join('; ')}`)
+    }
+  }
+
+  async function handleSyncTextContent() {
+    setSyncingText(true)
+    setTextSyncStatus(null)
+    saveDraftNow()
+
+    const result = await syncTextContent(
+      doc.messageLayers,
+      doc.tokenLayers,
+      doc.tenantId,
+    )
+    setSyncingText(false)
+
+    if (result.ok) {
+      const msgCount = doc.messageLayers.reduce(
+        (sum, layer) => sum + Object.keys(layer.messages).length,
+        0,
+      )
+      const tokenCount = doc.tokenLayers.reduce(
+        (sum, layer) => sum + Object.keys(layer.tokens).length,
+        0,
+      )
+      setTextSyncStatus(
+        `Synced text content: ${doc.messageLayers.length} message layers (${msgCount} strings), ${doc.tokenLayers.length} token layers (${tokenCount} tokens).`,
+      )
+    } else {
+      setTextSyncStatus(`Sync failed: ${result.error}`)
     }
   }
 
@@ -177,6 +212,34 @@ export function CmsPublishPage() {
               {syncStatus}
             </p>
           )}
+
+          <div className="border-t border-border-muted pt-4 mt-2">
+            <p className="text-sm font-medium mb-3">Text content (copy & tokens)</p>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button
+                type="button"
+                variant="secondary"
+                disabled={!isSupabaseConfigured || syncingText}
+                onClick={() => void handleSyncTextContent()}
+              >
+                {syncingText ? 'Syncing…' : 'Sync text content'}
+              </Button>
+              <div className="flex gap-2 text-sm text-foreground/60">
+                <Badge variant="outline">
+                  {doc.messageLayers.length} message layers
+                </Badge>
+                <Badge variant="outline">
+                  {doc.tokenLayers.length} token layers
+                </Badge>
+              </div>
+            </div>
+            {textSyncStatus && (
+              <p className="mt-3 rounded-xl bg-background-subtle px-3 py-2 text-sm text-foreground/80">
+                {textSyncStatus}
+              </p>
+            )}
+          </div>
+
           {!isSupabaseConfigured && (
             <p className="text-xs text-foreground/55">
               Create a <code className="text-xs">.env</code> file with your
