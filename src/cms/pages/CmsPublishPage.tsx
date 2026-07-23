@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Cloud, CloudOff } from 'lucide-react'
 import { useCmsStore } from '@/cms/CmsProvider'
@@ -13,6 +13,9 @@ import {
   isSupabaseConfigured,
   syncAllToSupabase,
   syncTextContent,
+  logPublish,
+  fetchPublishLogs,
+  type PublishLogEntry,
 } from '@/lib/db'
 import { brands } from '@/brands/types'
 import { brandLabels } from '@/brands/types'
@@ -31,6 +34,17 @@ export function CmsPublishPage() {
   const [previewName, setPreviewName] = useState<string | null>(null)
   const [status, setStatus] = useState<string | null>(null)
   const [publishing, setPublishing] = useState(false)
+  const [logs, setLogs] = useState<PublishLogEntry[]>([])
+
+  const loadLogs = useCallback(async () => {
+    if (!isSupabaseConfigured) return
+    const data = await fetchPublishLogs(doc.tenantId)
+    setLogs(data)
+  }, [doc.tenantId])
+
+  useEffect(() => {
+    void loadLogs()
+  }, [loadLogs])
 
   const files = useMemo(
     () => publishLocales(doc, { brand: context.brand }),
@@ -92,6 +106,32 @@ export function CmsPublishPage() {
       } else if (textResult.error) {
         errors.push(textResult.error)
       }
+    }
+
+    // Log the publish
+    if (isSupabaseConfigured && errors.length === 0) {
+      const games = doc.games ?? []
+      const promos = doc.promos ?? []
+      const assets = doc.assets ?? []
+      const msgCount = doc.messageLayers.reduce(
+        (sum, layer) => sum + Object.keys(layer.messages).length,
+        0,
+      )
+      const tokenCount = doc.tokenLayers.reduce(
+        (sum, layer) => sum + Object.keys(layer.tokens).length,
+        0,
+      )
+
+      await logPublish(doc.tenantId, {
+        games: games.length,
+        promos: promos.length,
+        assets: assets.length,
+        messages: msgCount,
+        tokens: tokenCount,
+      })
+
+      // Refresh logs
+      void loadLogs()
     }
 
     setPublishing(false)
@@ -173,6 +213,32 @@ export function CmsPublishPage() {
           </p>
         </CardContent>
       </Card>
+
+      {isSupabaseConfigured && logs.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Publish history</CardTitle>
+            <CardDescription>
+              Recent publishes to the live site
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-2">
+              {logs.slice(0, 10).map((log) => (
+                <div
+                  key={log.id}
+                  className="flex items-center justify-between rounded-lg border border-border-muted bg-background-subtle px-3 py-2 text-sm"
+                >
+                  <span className="text-foreground/80">{log.summary}</span>
+                  <span className="text-xs text-foreground/50">
+                    {new Date(log.published_at).toLocaleString()}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>

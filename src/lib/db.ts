@@ -408,3 +408,77 @@ export async function syncTextContent(
   }
   return { ok: true }
 }
+
+export type PublishLogEntry = {
+  id: string
+  tenant_id: string
+  published_at: string
+  summary: string
+  games_count: number
+  promos_count: number
+  assets_count: number
+  messages_count: number
+  tokens_count: number
+  details: Record<string, unknown>
+}
+
+export async function logPublish(
+  tenantId: string,
+  counts: {
+    games: number
+    promos: number
+    assets: number
+    messages: number
+    tokens: number
+  },
+  details?: Record<string, unknown>,
+): Promise<boolean> {
+  if (!isSupabaseConfigured) return false
+
+  const summary = [
+    counts.games > 0 && `${counts.games} games`,
+    counts.promos > 0 && `${counts.promos} promos`,
+    counts.assets > 0 && `${counts.assets} assets`,
+    counts.messages > 0 && `${counts.messages} strings`,
+    counts.tokens > 0 && `${counts.tokens} tokens`,
+  ]
+    .filter(Boolean)
+    .join(', ')
+
+  const { error } = await supabase.from('publish_logs').insert({
+    tenant_id: tenantId,
+    summary: summary || 'No changes',
+    games_count: counts.games,
+    promos_count: counts.promos,
+    assets_count: counts.assets,
+    messages_count: counts.messages,
+    tokens_count: counts.tokens,
+    details: details ?? {},
+  })
+
+  if (error) {
+    console.error('logPublish error:', error)
+    return false
+  }
+  return true
+}
+
+export async function fetchPublishLogs(
+  tenantId = DEFAULT_TENANT,
+  limit = 20,
+): Promise<PublishLogEntry[]> {
+  if (!isSupabaseConfigured) return []
+
+  const { data, error } = await supabase
+    .from('publish_logs')
+    .select('*')
+    .eq('tenant_id', tenantId)
+    .order('published_at', { ascending: false })
+    .limit(limit)
+
+  if (error) {
+    console.error('fetchPublishLogs error:', error)
+    return []
+  }
+  return data as PublishLogEntry[]
+}
