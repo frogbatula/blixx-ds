@@ -12,9 +12,7 @@ import {
   getPlayerRgControls,
   getPlayerNotes,
   createPlayerNote,
-  updatePlayer,
   updatePlayerKyc,
-  createFreeBet,
   setPlayerTier,
   clearTierOverride,
   calculateTier,
@@ -34,7 +32,6 @@ import type {
 import {
   PLAYER_STATUS_LABELS,
   ATTRIBUTION_SOURCE_LABELS,
-  WALLET_TYPE_LABELS,
   TRANSACTION_TYPE_LABELS,
   KYC_LEVEL_LABELS,
   RG_CONTROL_LABELS,
@@ -47,7 +44,6 @@ import {
 } from '@/lib/player-types'
 import { brandLabels } from '@/brands/types'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Textarea } from '@/components/ui/textarea'
@@ -77,12 +73,10 @@ import {
   Mail,
   Wallet as WalletIcon,
   Gift,
-  User,
   Shield,
   FileText,
   ArrowDownLeft,
   ArrowUpRight,
-  Clock,
   AlertTriangle,
   Crown,
   RotateCcw,
@@ -329,7 +323,6 @@ export function CmsPlayerDetailPage() {
 function OverviewTab({
   player,
   attribution,
-  wallets,
   onUpdate,
 }: {
   player: PlayerSummary

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { usePlayerAuth } from '@/lib/player-auth'
 import { getPlayerRgControls, createRgControl, cancelRgControl } from '@/lib/player-db'
-import type { ResponsibleGaming, RgControlType, RgProduct, LimitPeriod } from '@/lib/player-types'
+import type { ResponsibleGaming, RgProduct, LimitPeriod } from '@/lib/player-types'
 import { RG_CONTROL_LABELS, RG_PRODUCT_LABELS, LIMIT_PERIOD_LABELS } from '@/lib/player-types'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -462,7 +462,7 @@ function TakeBreakDialog({
             </Select>
           </div>
           <Button
-            variant={type === 'full_break' ? 'destructive' : 'default'}
+            variant={type === 'full_break' ? 'destructive' : 'primary'}
             onClick={handleSubmit}
             disabled={loading}
           >

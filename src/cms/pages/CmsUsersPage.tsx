@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useAuth, CMS_ROLES, ROLE_LABELS, setUserRole, type CmsRole } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import {
   Card,
   CardContent,
@@ -235,7 +234,6 @@ export function CmsUsersPage() {
 }
 
 function AssignRoleDropdown({
-  userId,
   onAssign,
   disabled,
 }: {

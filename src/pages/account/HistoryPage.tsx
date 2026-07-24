@@ -16,7 +16,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs'
-import { Dices, Trophy, Clock } from 'lucide-react'
+import { Dices, Clock } from 'lucide-react'
 
 export function HistoryPage() {
   const { player } = usePlayerAuth()

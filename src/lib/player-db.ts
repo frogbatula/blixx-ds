@@ -3,7 +3,6 @@ import { supabase, isSupabaseConfigured } from './supabase'
 import type {
   Player,
   PlayerSession,
-  OtpCode,
   PlayerAttribution,
   Wallet,
   Transaction,
@@ -14,9 +13,7 @@ import type {
   ResponsibleGaming,
   PlayerNote,
   PlayerSummary,
-  AttributionSource,
   TransactionType,
-  KycLevel,
   RgControlType,
   RgProduct,
   LimitPeriod,

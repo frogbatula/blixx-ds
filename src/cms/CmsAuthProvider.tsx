@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
-import type { User, Session } from '@supabase/supabase-js'
+import type { User } from '@supabase/supabase-js'
 import {
   AuthContext,
   type AuthState,
-  type CmsRole,
   getCurrentSession,
   onAuthStateChange,
   signInWithEmail,
