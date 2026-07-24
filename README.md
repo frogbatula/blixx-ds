@@ -206,6 +206,15 @@ Source of truth for edits: [`cms/data/blixx-gaming.json`](cms/data/blixx-gaming.
 
 Copy [`.env.example`](.env.example) for local secret overrides.
 
+**Supabase (CMS auth + player data):** Vite inlines `VITE_*` at **build** time. In Cloudflare Pages → Settings → Environment variables, set for Production (and Preview if needed):
+
+| Variable | Value |
+| --- | --- |
+| `VITE_SUPABASE_URL` | Project URL from Supabase → Settings → API |
+| `VITE_SUPABASE_ANON_KEY` | `anon` / publishable key from the same page |
+
+Then **Retry deployment** (or push a commit) so the build picks them up. Without these, the site still loads but CMS falls back to passcode auth and remote persistence is off.
+
 **Factory defaults (safety net):** [`src/cms/factory/`](src/cms/factory/) is an immutable backup of locales + tenant JSON. Publish never writes there. The live app always merges factory under `src/i18n/locales`, so missing keys still resolve. In HubHQ, **Restore factory defaults** clears the draft, reloads the factory tenant, resets runtime copy, and (with local `npm run dev`) copies factory files back onto disk.
 
 **Publish flow (POC):**
