@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Cloud, CloudOff } from 'lucide-react'
+import { Cloud, CloudOff, User } from 'lucide-react'
 import { useCmsStore } from '@/cms/CmsProvider'
+import { useAuth } from '@/lib/auth'
 import {
   downloadLocaleBundle,
   downloadTextFile,
@@ -31,6 +32,7 @@ import {
 
 export function CmsPublishPage() {
   const { doc, context, saveDraftNow, dirty } = useCmsStore()
+  const { user } = useAuth()
   const [previewName, setPreviewName] = useState<string | null>(null)
   const [status, setStatus] = useState<string | null>(null)
   const [publishing, setPublishing] = useState(false)
@@ -122,13 +124,17 @@ export function CmsPublishPage() {
         0,
       )
 
-      await logPublish(doc.tenantId, {
-        games: games.length,
-        promos: promos.length,
-        assets: assets.length,
-        messages: msgCount,
-        tokens: tokenCount,
-      })
+      await logPublish(
+        doc.tenantId,
+        {
+          games: games.length,
+          promos: promos.length,
+          assets: assets.length,
+          messages: msgCount,
+          tokens: tokenCount,
+        },
+        user?.email,
+      )
 
       // Refresh logs
       void loadLogs()
@@ -227,10 +233,18 @@ export function CmsPublishPage() {
               {logs.slice(0, 10).map((log) => (
                 <div
                   key={log.id}
-                  className="flex items-center justify-between rounded-lg border border-border-muted bg-background-subtle px-3 py-2 text-sm"
+                  className="flex items-center justify-between gap-4 rounded-lg border border-border-muted bg-background-subtle px-3 py-2 text-sm"
                 >
-                  <span className="text-foreground/80">{log.summary}</span>
-                  <span className="text-xs text-foreground/50">
+                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <span className="text-foreground/80">{log.summary}</span>
+                    {log.published_by && (
+                      <span className="flex items-center gap-1 text-xs text-foreground/50">
+                        <User className="size-3" />
+                        {log.published_by}
+                      </span>
+                    )}
+                  </div>
+                  <span className="shrink-0 text-xs text-foreground/50">
                     {new Date(log.published_at).toLocaleString()}
                   </span>
                 </div>

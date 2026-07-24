@@ -9,6 +9,10 @@ import {
   Image,
   Dices,
   Gift,
+  LogOut,
+  User,
+  Users,
+  UserCircle,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -16,17 +20,21 @@ import { Badge } from '@/components/ui/badge'
 import { CmsProvider, useCmsStore } from '@/cms/CmsProvider'
 import { CmsContextBar } from '@/cms/components/CmsContextBar'
 import { setCmsAuthenticated } from '@/cms/lib/storage'
+import { useAuth, ROLE_LABELS } from '@/lib/auth'
+import { isSupabaseConfigured } from '@/lib/db'
 
 const nav = [
-  { to: '/cms', end: true, label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/cms/games', end: false, label: 'Games', icon: Dices },
-  { to: '/cms/promos', end: false, label: 'Promotions', icon: Gift },
-  { to: '/cms/copy', end: false, label: 'Copy', icon: Type },
-  { to: '/cms/tokens', end: false, label: 'Design tokens', icon: Palette },
-  { to: '/cms/assets', end: false, label: 'Assets', icon: Image },
-  { to: '/cms/publish', end: false, label: 'Publish', icon: Upload },
-  { to: '/cms/settings', end: false, label: 'Tenants', icon: Building2 },
-] as const
+  { to: '/cms', end: true, label: 'Dashboard', icon: LayoutDashboard, superAdminOnly: false },
+  { to: '/cms/players', end: false, label: 'Players', icon: UserCircle, superAdminOnly: false },
+  { to: '/cms/games', end: false, label: 'Games', icon: Dices, superAdminOnly: false },
+  { to: '/cms/promos', end: false, label: 'Promotions', icon: Gift, superAdminOnly: false },
+  { to: '/cms/copy', end: false, label: 'Copy', icon: Type, superAdminOnly: false },
+  { to: '/cms/tokens', end: false, label: 'Design tokens', icon: Palette, superAdminOnly: false },
+  { to: '/cms/assets', end: false, label: 'Assets', icon: Image, superAdminOnly: false },
+  { to: '/cms/publish', end: false, label: 'Publish', icon: Upload, superAdminOnly: false },
+  { to: '/cms/users', end: false, label: 'CMS Users', icon: Users, superAdminOnly: true },
+  { to: '/cms/settings', end: false, label: 'Tenants', icon: Building2, superAdminOnly: true },
+]
 
 function CmsShellInner() {
   const {
@@ -36,6 +44,20 @@ function CmsShellInner() {
     restoreStatus,
     doc,
   } = useCmsStore()
+  const { user, role, signOut, canManageTenants } = useAuth()
+
+  const filteredNav = nav.filter(
+    (item) => !item.superAdminOnly || canManageTenants,
+  )
+
+  async function handleSignOut() {
+    if (isSupabaseConfigured) {
+      await signOut()
+    } else {
+      setCmsAuthenticated(false)
+    }
+    window.location.href = '/cms'
+  }
 
   return (
     <div className="flex min-h-dvh bg-background text-foreground">
@@ -47,7 +69,7 @@ function CmsShellInner() {
           <p className="font-semibold">{doc.name}</p>
         </div>
         <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-2">
-          {nav.map((item) => {
+          {filteredNav.map((item) => {
             const Icon = item.icon
             return (
               <NavLink
@@ -102,14 +124,23 @@ function CmsShellInner() {
             >
               Restore factory defaults
             </Button>
+            {user && (
+              <span className="flex items-center gap-2 text-xs text-nav-foreground/60">
+                <User className="size-3" />
+                <span>{user.email}</span>
+                {role && (
+                  <Badge variant="outline" className="text-[10px]">
+                    {ROLE_LABELS[role]}
+                  </Badge>
+                )}
+              </span>
+            )}
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => {
-                setCmsAuthenticated(false)
-                window.location.href = '/cms'
-              }}
+              onClick={() => void handleSignOut()}
             >
+              <LogOut className="size-4" />
               Sign out
             </Button>
           </div>
@@ -121,7 +152,7 @@ function CmsShellInner() {
         ) : null}
 
         <div className="flex gap-1 overflow-x-auto border-b border-border-muted p-2 md:hidden">
-          {nav.map((item) => (
+          {filteredNav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}

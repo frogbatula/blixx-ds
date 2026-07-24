@@ -413,6 +413,7 @@ export type PublishLogEntry = {
   id: string
   tenant_id: string
   published_at: string
+  published_by: string | null
   summary: string
   games_count: number
   promos_count: number
@@ -431,6 +432,7 @@ export async function logPublish(
     messages: number
     tokens: number
   },
+  publishedBy?: string | null,
   details?: Record<string, unknown>,
 ): Promise<boolean> {
   if (!isSupabaseConfigured) return false
@@ -447,6 +449,7 @@ export async function logPublish(
 
   const { error } = await supabase.from('publish_logs').insert({
     tenant_id: tenantId,
+    published_by: publishedBy ?? null,
     summary: summary || 'No changes',
     games_count: counts.games,
     promos_count: counts.promos,
